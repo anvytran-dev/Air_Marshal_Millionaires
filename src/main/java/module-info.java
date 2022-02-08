@@ -9,6 +9,8 @@ module com.millionaires.airmarshal {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.json;
+    requires java.desktop;
 
     opens com.millionaires.airmarshal to javafx.fxml;
     exports com.millionaires.airmarshal;

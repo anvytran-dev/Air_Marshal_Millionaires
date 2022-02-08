@@ -1,14 +1,10 @@
-package com.nimble_four.AirMarshal.controller;
+package com.millionaires.airmarshal.controller;
 
-import com.apps.util.Console;
-import com.apps.util.Prompter;
-import com.nimble_four.AirMarshal.Item;
-import com.nimble_four.AirMarshal.Player;
-import com.nimble_four.AirMarshal.music.MusicPlayer;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.json.simple.JSONArray;
+import com.millionaires.airmarshal.Item;
+import com.millionaires.airmarshal.Player;
+import com.millionaires.airmarshal.music.MusicPlayer;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,19 +16,15 @@ import java.util.Scanner;
 
 public class VerbParser {
 
-    private static Prompter prompter = new Prompter(new Scanner(System.in));
-
-
     private Object roomData;
 
     //every choice the player makes passes through here. Then delegates the task to function calls.
     //Functions calls should be abstracted out to a class to handle specific verb
-    public String parseVerb(String choice, String activeRoom, Player player) throws IOException, ParseException {
+    public String parseVerb(String choice, String activeRoom, Player player) throws Exception {
 
         JSONObject allRooms = getRoomData();  //read in from resources/room_data.json
-        JSONObject currentRoomData = (JSONObject) allRooms.get(activeRoom);
+        JSONObject currentRoomData = allRooms.getJSONObject(activeRoom);
 
-        Console.clear();
 
         switch (findChoiceSynonyms(choice)) {
             case "move":
@@ -61,11 +53,15 @@ public class VerbParser {
 
     }
 
+    public static String fakePrompt(String... out){
+        return "";
+    }
+
     //reads in data for use in game
     //public to test
-    public JSONObject getRoomData() throws IOException, ParseException {
+    public JSONObject getRoomData() throws Exception {
         if (roomData == null) {
-            roomData = new JSONParser().parse(new FileReader("resources/room_data.json"));
+            roomData = new JSONObject(new FileReader("resources/room_data.json"));
         }
 
         //NOTE: "resources/room_data.json" can be edited to change in game items, characters, etc.
@@ -126,20 +122,20 @@ public class VerbParser {
     // static classes below. Each to handle 1. character moving 2. Conversations with NPC's 3. Items and 4. Inventory
     private static class CharacterMover {
 
-        static String movePlayer(String activeRoom, JSONObject currentRoomData, JSONObject allRooms, Player player) throws IOException, ParseException {
+        static String movePlayer(String activeRoom, JSONObject currentRoomData, JSONObject allRooms, Player player) throws IOException {
             JSONObject directions = (JSONObject) currentRoomData.get("directions");
             formatter.displayDoubleTable(directions,"\u001B[36m", "Direction", "Room");
-            String leaveRoom = prompter.prompt("Would you like to leave the room, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
+            String leaveRoom = fakePrompt("Would you like to leave the room, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
             if (leaveRoom.equals("yes") || leaveRoom.equals("y")) {
-            String directionChoice = prompter.prompt("Which direction would you like to go?\n--> ", "up|down|back|forward",
+            String directionChoice = fakePrompt("Which direction would you like to go?\n--> ", "up|down|back|forward",
                     "Please enter a valid direction option.");
                 //check if its valid direction for the current room
-                if(directions.containsKey(directionChoice)) {
+                if(directions.has(directionChoice)) {
                     System.out.println("Moving to the requested direction " + directionChoice);
-                    prompter.prompt("Enter to continue");
+                    fakePrompt("Enter to continue");
                 } else {
                     System.out.println("Invalid direction. Can not move " + directionChoice + " from this room.");
-                    prompter.prompt("Enter to continue");
+                    fakePrompt("Enter to continue");
                     return activeRoom;
                 }
             //checks to see if player has the item needed to enter room they are trying to
@@ -152,9 +148,13 @@ public class VerbParser {
             return activeRoom;
         }
 
+        private static String fakePrompt(String... s) {
+            return "";
+        }
+
         //prevents player from entering certain rooms if they don't already have access to it via required items
         // POSTER -->  COCKPIT -- | -- AIRCRAFT GUIDE --> GALLEY -- | -- CARGO KEY --> CARGO
-        static boolean authorizePlayerToEnter(String directionChoice, Player player) throws IOException, ParseException {
+        static boolean authorizePlayerToEnter(String directionChoice, Player player) throws IOException {
 
             switch (directionChoice) {
                 //these require no keys or items to enter.
@@ -165,56 +165,64 @@ public class VerbParser {
                 case "cockpit": //requires poster
                     if (player.getInventory().contains(Item.POSTER)) {
                         System.out.println("You gained access with your tour POSTER!");
-                        prompter.prompt("Enter to continue");
+                        fakePrompt("Enter to continue");
                         return true;
                     }
                 case "galley": //requires aircraft guide
                     if (player.getInventory().contains(Item.AIRCRAFT_GUIDE)) {
                         System.out.println("Your AIRCRAFT GUIDE allows you to navigate the lower deck!");
-                        prompter.prompt("Enter to continue");
+                        fakePrompt("Enter to continue");
                         return true;
                     }
                 case "cargo": //requires cargo key
                     if (player.getInventory().contains(Item.CARGO_KEY)) {
                         System.out.println("You unlocked the cargo room door!");
-                        prompter.prompt("Enter to continue");
+                        fakePrompt("Enter to continue");
                         return true;
                     }
                 default:
-                    JSONObject closedGateDialogue = (JSONObject) new JSONParser().parse(new FileReader("resources/closed_gate_dialogue.json"));
+                    JSONObject closedGateDialogue = new JSONObject(new FileReader("resources/closed_gate_dialogue.json"));
                     System.out.println(closedGateDialogue.get(directionChoice));
-                    prompter.prompt("Enter to continue");
+                    fakePrompt("Enter to continue");
                     return false;
             }
         }
     }
 
     private static class ConversationHandler {
-        private static void talkToCharacters(JSONObject currentRoomData, Player player) throws IOException, ParseException {
-            formatter.displaySingleTable((JSONArray) currentRoomData.get("characters"),"\u001B[31m","CHARACTERS");
+        private static void talkToCharacters(JSONObject currentRoomData, Player player) throws IOException {
+            formatter.displaySingleTable(currentRoomData.getJSONArray("characters"),"\u001B[31m","CHARACTERS");
             JSONArray characters = (JSONArray) currentRoomData.get("characters");
             JSONObject characterDialogueData = getCharacterDialogueData();
             if(((JSONArray) currentRoomData.get("characters")).isEmpty()){
                 System.out.println("There are no characters in this room to talk to!");
-                prompter.prompt("Enter to continue");
+                fakePrompt("Enter to continue");
                 return;
             }
-            String characterChoice = prompter.prompt("\nWho would you like to talk to?\n--> ");
-            if (characters.contains(characterChoice)) {
+            String characterChoice = fakePrompt("\nWho would you like to talk to?\n--> ");
+
+            boolean containsChoice = false;
+            for(Object choice : characters){
+                if(characterChoice.equals((String) choice)){
+                    containsChoice = true;
+                }
+            }
+
+            if (containsChoice) {
                 if (characterChoice.equals("stewardess")) {
                     //this is how game ends
                     if (player.getInventory().contains(Item.POISON) & player.getInventory().contains(Item.BOARDING_PASS)) {
                         //NOTE: endgame dialogue can be edited in "resources/endgame.json"
-                        JSONObject endGameDialogue = (JSONObject) new JSONParser().parse(new FileReader("resources/endgame.json"));
+                        JSONObject endGameDialogue = (JSONObject) new JSONObject(new FileReader("resources/endgame.json"));
                         System.out.println(endGameDialogue.get("end"));
-                        prompter.prompt("Enter to continue");
+                        fakePrompt("Enter to continue");
                         try {
                             Files.readAllLines(Path.of("resources/data/game_ending.txt")).forEach(System.out::println);
-                            String command = prompter.prompt("Enter to exit");
+                            String command = fakePrompt("Enter to exit");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        prompter.prompt("Enter to continue");
+                        fakePrompt("Enter to continue");
                         player.setPlaying(false); //set isPlaying to "false" to break the game loop
                         GameTimeKeeper.timeKeeper = null;
                         MusicPlayer.controller(1);
@@ -224,17 +232,17 @@ public class VerbParser {
                 }
             } else {
                 System.out.println("Not a valid name or character is in another room");
-                prompter.prompt("Enter to continue");
+                fakePrompt("Enter to continue");
                 return;
             }
-            JSONObject characterDialogue = (JSONObject) characterDialogueData; //this might be redundant
+            JSONObject characterDialogue = characterDialogueData; //this might be redundant
             System.out.println(characterDialogue.get(characterChoice));
-            prompter.prompt("Enter to exit");
+            fakePrompt("Enter to exit");
         }
 
-        private static JSONObject getCharacterDialogueData() throws IOException, ParseException {
+        private static JSONObject getCharacterDialogueData() throws IOException {
             // NOTE: In game dialogue can be edited in "resources/character_dialogue.json"
-            JSONObject characterDialogueData = (JSONObject) new JSONParser().parse(new FileReader("resources/character_dialogue.json"));
+            JSONObject characterDialogueData = (JSONObject) new JSONObject(new FileReader("resources/character_dialogue.json"));
             return characterDialogueData;
         }
     }
@@ -243,15 +251,22 @@ public class VerbParser {
         private static void handleItems(JSONObject currentRoomData, Player player) {
             JSONArray itemsArray = (JSONArray) currentRoomData.get("items"); // converts the JSON to a JSONARRAY
                 // If the room has items ie all the items in the room haven't yet been Picked up
-                if (itemsArray.size() != 0) {
+                if (itemsArray.length() != 0) {
                     // method that generates a list of the items into a more readable format
                     formatter.displaySingleTable(itemsArray,"\u001B[32m","ITEMS");
-                    String addItem = prompter.prompt("\nWould you like to add any items to your inventory, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
+                    String addItem = fakePrompt("\nWould you like to add any items to your inventory, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
                     if (addItem.equals("yes") || addItem.equals("y")) {
-                        String itemSelected = prompter.prompt("\nWhich item would you like to get?\n--> ").toUpperCase();
+                        String itemSelected = fakePrompt("\nWhich item would you like to get?\n--> ").toUpperCase();
                         String item = itemSelected.replace(" ", "_");
                         // Checks if the item entered by user is valid ie is in that specific room
-                        boolean isValidItem = itemsArray.stream().anyMatch(it -> it.equals(itemSelected.toLowerCase()));
+
+                        boolean isValidItem = false;
+                        for(Object o : itemsArray){
+                            if(o.equals(itemSelected)){
+                                isValidItem = true;
+                                break;
+                            }
+                        }
 
                         if (isValidItem) {
                             // checks if item is already in our inventory
@@ -260,7 +275,7 @@ public class VerbParser {
                             } else {
                                 // Once an item is picked up, it is removed from the room
                                 Object itemz = (Object) itemSelected.toLowerCase();
-                                itemsArray.remove(itemz);
+                                itemsArray.remove((Integer) itemz);
                                 // Added to players inventory
                                 player.addToInventory(Item.valueOf(item));
                                 System.out.println("Item successfully added");
@@ -272,7 +287,7 @@ public class VerbParser {
                 } else {
                     System.out.println("No items left, You've picked up all the items in the room");
                 }
-            String command = prompter.prompt("Enter to exit");
+            String command = fakePrompt("Enter to exit");
         }
     }
 
@@ -283,13 +298,13 @@ public class VerbParser {
                 System.out.println("You don't have any items in your inventory");
             } else {
                 player.displayInventory();
-                String dropItem = prompter.prompt("\nWould you like to drop any items in your inventory, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
+                String dropItem = fakePrompt("\nWould you like to drop any items in your inventory, yes or no?\n--> ", "yes|y|no|n","Invalid entry, please enter yes or no");
                 if (dropItem.equals("yes") || dropItem.equals("y")) {
-                    String itemSelected = prompter.prompt("Which of the above items would you like to drop from your inventory?\n--> ");
+                    String itemSelected = fakePrompt("Which of the above items would you like to drop from your inventory?\n--> ");
                     System.out.println(deletedFromInventory(currentRoomData, player, itemSelected));
                 }
             }
-            String command = prompter.prompt("Enter to exit");
+            String command = fakePrompt("Enter to exit");
         }
 
         //            MAKING SURE USER INPUT IS A VALID ENUM
@@ -304,7 +319,7 @@ public class VerbParser {
                 JSONArray itemsArray = (JSONArray) currentRoomData.get("items"); // converts the JSON to a JSONARRAY
                 // Once an item is picked up, it is removed from the room
                 Object itemz = (Object) itemSelected.toLowerCase();
-                itemsArray.add(itemz);
+                itemsArray.put(itemz);
 
                 return isDeleted;
             } else {
@@ -327,7 +342,7 @@ public class VerbParser {
         private static void handleMap (String activeRoom) {
             try {
                 Files.readAllLines(Path.of("resources/maps/" + activeRoom +".txt")).forEach(System.out::println);
-                String command = prompter.prompt("Enter to exit");
+                String command = fakePrompt("Enter to exit");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -355,7 +370,7 @@ public class VerbParser {
             System.out.format(color + "*-----------------+-------------------*%n");
             System.out.format("| " + title1 + " ".repeat(count1) + " | " + title2 + " ".repeat(count2) +  " |%n");
             System.out.format("+-----------------+-------------------+%n");
-            data.forEach((key,value) -> System.out.format(leftAlignFormat,key, value));
+//            data.keySet().forEach((key,value) -> System.out.format(leftAlignFormat,key, value));
             System.out.format("*-----------------+-------------------*%n" + "\u001B[0m");
         }
     }
@@ -367,7 +382,7 @@ public class VerbParser {
                 System.out.println("\n  Pause");
                 System.out.println("  Resume\n");
                 System.out.println("\n-----------------\n");
-                String choice = prompter.prompt("-> ");
+                String choice = fakePrompt("-> ");
                 if(choice.equalsIgnoreCase("pause")){
                     MusicPlayer.controller(1);
                 }

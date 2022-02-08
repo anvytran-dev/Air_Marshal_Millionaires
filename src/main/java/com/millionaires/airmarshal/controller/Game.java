@@ -1,9 +1,6 @@
 package com.millionaires.airmarshal.controller;
-import com.apps.util.Console;
-import com.apps.util.Prompter;
-import com.nimble_four.AirMarshal.Item;
-import com.nimble_four.AirMarshal.Player;
-import com.nimble_four.AirMarshal.music.MusicPlayer;
+import com.millionaires.airmarshal.Item;
+import com.millionaires.airmarshal.Player;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,11 +13,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import com.millionaires.airmarshal.music.MusicPlayer;
+import org.json.*;
+
 
 public class Game{
     private Player player;
     private Scanner scanner = new Scanner(System.in);
-    private Prompter prompter = new Prompter(scanner);
     private String activeRoom = "commercial class";
     private VerbParser verbParser = new VerbParser();
     private GameTimeKeeper timer;
@@ -32,21 +31,19 @@ public class Game{
 
     private void gameIntro() {
         // Reads game intro and instructions from data/json files at the beginning of the game
-        Console.clear();
         try {
             Files.readAllLines(Path.of("resources/data/game_banner.txt")).forEach(System.out::println);
             Thread.sleep(2000);
-            Console.clear();
             Files.readAllLines(Path.of("resources/data/game_intro.txt")).forEach(System.out::println);
             Thread.sleep(5000);
-            String move = prompter.prompt("Enter to continue");
+            String move = VerbParser.fakePrompt("Enter to continue");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     private void startGame() {
-        Console.clear();
+
         // player is prompted with play game menu options
         try {
             Files.readAllLines(Path.of("resources/data/game_banner.txt")).forEach(System.out::println);
@@ -56,8 +53,8 @@ public class Game{
         printMenu("gameOptions");
         //playGameOptions();
         player = new Player();
-        String choice = prompter.prompt("Please enter your choice: \n-> ", "1|2|3|4", "Invalid choice: enter 1, 2, 3, or 4");
-        Console.clear();
+        String choice = VerbParser.fakePrompt("Please enter your choice: \n-> ", "1|2|3|4", "Invalid choice: enter 1, 2, 3, or 4");
+
         if(Integer.parseInt(choice) == 2) {
             System.out.println("Hope you will come back again!");
             System.exit(0);
@@ -66,19 +63,18 @@ public class Game{
             // Reads game instructions from data/json if player chooses to from the play game menu
             try {
                 Files.readAllLines(Path.of("resources/data/game_instructions.txt")).forEach(System.out::println);
-                String move = prompter.prompt("Enter to continue");
-                Console.clear();
+                String move = VerbParser.fakePrompt("Enter to continue");
                 startGame();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if(Integer.parseInt(choice) == 4){
-            player.setName(prompter.prompt("What is your name?\n-> "));
+            player.setName(VerbParser.fakePrompt("What is your name?\n-> "));
             loadGame(player.getName());
         }
         else if(Integer.parseInt(choice) == 1){
-            player.setName(prompter.prompt("What is your name?\n-> "));
+            player.setName(VerbParser.fakePrompt("What is your name?\n-> "));
             System.out.println("Enjoy the game Air Marshal " + player.getName());
             timer = GameTimeKeeper.getInstance(player, scanner);
             MusicPlayer.init();
@@ -89,7 +85,7 @@ public class Game{
     private void loadGame(String name) {
         try{
             System.out.println("Loading game for " + name);
-            JSONObject loadedFile = (JSONObject) new JSONParser().parse(new FileReader("resources/saves/"+name+".json")); //the entire data file
+            JSONObject loadedFile = new JSONObject(new FileReader("resources/saves/"+name+".json")); //the entire data file
             JSONObject loadedData = (JSONObject) loadedFile.get(name); // this is the user's specific data
             //Load room
             String loadedRoom = (String) loadedData.get("activeRoom");
@@ -124,7 +120,6 @@ public class Game{
     private void turnLoop() {
         while (player.isPlaying()) {
 
-            Console.clear();// clears console after every turn a player takes
 
             try {
                 statusBar();
@@ -135,7 +130,7 @@ public class Game{
                 else {
                     printMenu("turn");
                 }
-                String choice = prompter.prompt("What would you like to do?\n-> ");
+                String choice = VerbParser.fakePrompt("What would you like to do?\n-> ");
                 if (timer.isTimeLeft()) {
                     if(choice.toLowerCase().equals("options")){
                         displayOptions();
@@ -149,19 +144,15 @@ public class Game{
                 }
 
                 // catch block because verbParser.parseVerb(...) uses a fileReader that requires exception handling
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            }  catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void displayOptions() throws IOException, ParseException {
+    private void displayOptions() throws Exception{
         printMenu("options");
-        String choice = prompter.prompt("Type an option\n-> ", "sound|Sound|quit|Quit|Save|save", "Please enter a valid option");
+        String choice = VerbParser.fakePrompt("Type an option\n-> ", "sound|Sound|quit|Quit|Save|save", "Please enter a valid option");
         switch(choice.toLowerCase()){
             case "quit":
                 quitGame();
@@ -197,10 +188,10 @@ public class Game{
         newSaveData.put(player.getName(), data);
         try{
             FileWriter file = new FileWriter("resources/saves/"+player.getName()+".json");
-            file.write(newSaveData.toJSONString());
+            file.write(newSaveData.toString());
             file.close();
             System.out.println("File Saved!");
-            String move = prompter.prompt("Enter to continue");
+            String move = VerbParser.fakePrompt("Enter to continue");
         }catch (IOException e){
             System.out.println(e.getLocalizedMessage());
         }
@@ -221,7 +212,7 @@ public class Game{
     }
 
     public void playAgain() {
-        String response = prompter.prompt("Do you want to play again? yes or no?\n-> ", "yes|no|y|n", "Invalid Choice");
+        String response = VerbParser.fakePrompt("Do you want to play again? yes or no?\n-> ", "yes|no|y|n", "Invalid Choice");
         if (response.equals("yes")|| response.equals("y")) {
             MusicPlayer.controller(1);
             startGame();

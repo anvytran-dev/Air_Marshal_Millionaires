@@ -1,6 +1,5 @@
 package com.millionaires.airmarshal.client;
-
-import com.nimble_four.AirMarshal.controller.Game;
+import com.millionaires.airmarshal.controller.Game;
 
 class Main {
     public static void main(String[] args) {
