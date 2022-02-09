@@ -13,7 +13,8 @@ public class CompartmentData {
     private Map<String, String> directions;
 
     public CompartmentData(){
-        backgroundUrl = "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg";
+        backgroundUrl = "resources/images/comclass.jpeg";
+
         characters = List.of(
               new InteractableData()
         );
