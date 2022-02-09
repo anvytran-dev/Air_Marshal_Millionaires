@@ -1,12 +1,23 @@
 {
   "rooms": {
     "commercial class": {
+      "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
       "characters": [
-        "teacher",
+        {
+          "name" : "teacher",
+          "x" : 342,
+          "y" : 234,
+          "image": "whatever.png"
+        },
         "doctor"
       ],
       "items": [
-        "yellow handkerchief",
+        {
+          "name":"yellow handkerchief",
+          "x": 300,
+          "y":300,
+          "image": "handkerchief.png"
+        },
         "overhead luggage",
         "stethoscope",
         "carton of cigarettes",

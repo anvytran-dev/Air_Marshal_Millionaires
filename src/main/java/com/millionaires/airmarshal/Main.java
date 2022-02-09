@@ -1,5 +1,7 @@
 package com.millionaires.airmarshal;
 
+import com.millionaires.airmarshal.models.CompartmentData;
+import com.millionaires.airmarshal.views.CompartmentView;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -12,9 +14,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Scene scene = new Scene(new VBox(), 320, 240);
+        Scene scene = new Scene(new CompartmentView(new CompartmentData()), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
