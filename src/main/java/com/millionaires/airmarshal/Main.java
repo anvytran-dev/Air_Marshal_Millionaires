@@ -17,10 +17,19 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+//        SideMenu menu = new SideMenu();
+//        menu.setPrefWidth(650);
+//        menu.setSpacing(200);
+//        menu.setBorder(Border.EMPTY);
+//        menu.setAlignment(Pos.TOP_CENTER);
+//        CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
+//        HBox row = new HBox(new CompartmentView(cd),menu);
 
-        CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
-
-        System.out.println(ViewInterface.getInstance().getRoomData().get("commercial class").getItems().size());
+//        Scene scene = new Scene(new CompartmentView(cd), 320, 240);
+//        Scene scene = new Scene(row, 420, 340);
+//        CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
+//
+//        System.out.println(ViewInterface.getInstance().getRoomData().get("commercial class").getItems().size());
 
         Scene scene = new Scene(new MainMenuView());
 
@@ -29,6 +38,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {

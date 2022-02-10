@@ -20,7 +20,11 @@ import java.util.List;
 
 public class MainMenuView extends VBox {
 
+
     public MainMenuView() {
+        super();
+        setStyle("-fx-font-family: 'sans-serif'");
+
         ImageView logo = new ImageView(getPath("large_logo.png"));
 
         // Get the plane image and set properties
@@ -33,6 +37,8 @@ public class MainMenuView extends VBox {
         setAlignment(Pos.BASELINE_CENTER);
         setBackground(getBackgroundImage(getPath("bg.png")));
         setSpacing(5);
+
+
     }
 
     private String getPath(String fileName) {
@@ -48,18 +54,23 @@ public class MainMenuView extends VBox {
 
     private class MainMenuButton extends Button {
         MainMenuButton(String text, EventHandler<ActionEvent> function) {
+            super();
             setText(text);
             setPrefWidth(300);
             setFont(Font.font(20));
-            setStyle("-fx-font-family: 'sans-serif'");
             setOnAction(function);
-            setStyle("-fx-base: #1f1f8c");
             setTextFill(Color.WHITE);
+
+
+
+
         }
     }
 
     private class MenuButtons extends VBox {
         MenuButtons() {
+            super();
+//            setStyle("-fx-font-family: 'sans-serif'");
             MainMenuButton play = new MainMenuButton("Play", playGame);
             MainMenuButton load = new MainMenuButton("Load", playGame);
             MainMenuButton instructions = new MainMenuButton("Instructions", playGame);
@@ -67,6 +78,8 @@ public class MainMenuView extends VBox {
             getChildren().addAll(play, load, instructions, quit);
             setAlignment(Pos.BASELINE_CENTER);
             setSpacing(5);
+
+
         }
     }
 
