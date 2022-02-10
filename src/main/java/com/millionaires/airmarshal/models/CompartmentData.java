@@ -55,4 +55,8 @@ public class CompartmentData {
     public void setDirections(Map<String, String> directions) {
         this.directions = directions;
     }
+
+    public String getNextCompartmentName(String direction) {
+        return directions.get(direction);
+    }
 }
