@@ -1,5 +1,6 @@
 package com.millionaires.airmarshal.views;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.views.components.Interactable;
@@ -62,7 +63,7 @@ public class MainMenuView extends VBox {
             MainMenuButton play = new MainMenuButton("Play", playGame);
             MainMenuButton load = new MainMenuButton("Load", playGame);
             MainMenuButton instructions = new MainMenuButton("Instructions", playGame);
-            MainMenuButton quit = new MainMenuButton("Quit", playGame);
+            MainMenuButton quit = new MainMenuButton("Quit", quitGame);
             getChildren().addAll(play, load, instructions, quit);
             setAlignment(Pos.BASELINE_CENTER);
             setSpacing(5);
@@ -70,5 +71,7 @@ public class MainMenuView extends VBox {
     }
 
     EventHandler<ActionEvent> playGame = event -> System.out.println("Clicked play");
+
+    EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
 
 }

@@ -3,6 +3,7 @@ package com.millionaires.airmarshal;
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.views.CompartmentView;
+import com.millionaires.airmarshal.views.MainMenuView;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ public class Main extends Application {
 
         System.out.println(ViewInterface.getInstance().getRoomData().get("commercial class").getItems().size());
 
-        Scene scene = new Scene(new CompartmentView(cd), 320, 240);
+        Scene scene = new Scene(new MainMenuView());
 
         System.out.println(ViewInterface.getInstance().getRoomData());
         stage.setTitle("Hello!");
