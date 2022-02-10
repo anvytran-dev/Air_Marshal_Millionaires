@@ -15,17 +15,21 @@ import java.nio.CharBuffer;
 import java.util.*;
 
 public class ViewInterface {
+    // Singleton
+
     private static final ViewInterface instance = new ViewInterface();
 
-    private Map<String, CompartmentData> compartmentData;
-
-    private ViewInterface() {
-
-            compartmentData = loadCompartmentData();
-
+    public static ViewInterface getInstance() {
+        return instance;
     }
 
-    private Map<String,CompartmentData> loadCompartmentData()  {
+
+    // Class methods below
+    private Map<String, CompartmentData> compartmentData = loadCompartmentData();
+
+    private ViewInterface() {}
+
+    private Map<String, CompartmentData> loadCompartmentData() {
         //[{}, {}]
         File file = new File("resources/room_data.json");
 
@@ -46,14 +50,14 @@ public class ViewInterface {
 
         Map<String, CompartmentData> tempMap = new HashMap<>();
 
-        for(String key : roomData.keySet()) {
+        for (String key : roomData.keySet()) {
             JSONObject room = roomData.getJSONObject(key);
 
             //convert list of characters to List<InteractableData>
             List<InteractableData> chars = new ArrayList<>();
             JSONArray listOfCharacters = room.getJSONArray("characters");
 
-            for(Object character : listOfCharacters) {
+            for (Object character : listOfCharacters) {
                 JSONObject charJSON = (JSONObject) character;
                 InteractableData person = new InteractableData(charJSON.getString("name"), charJSON.getString("image"), charJSON.getDouble("x"), charJSON.getDouble("y"));
 
@@ -64,7 +68,7 @@ public class ViewInterface {
             List<InteractableData> items = new ArrayList<>();
             JSONArray listOfItems = room.getJSONArray("items");
 
-            for(Object item : listOfItems) {
+            for (Object item : listOfItems) {
                 JSONObject itemJSON = (JSONObject) item;
                 InteractableData itemInRoom = new InteractableData(itemJSON.getString("name"), itemJSON.getString("image"), itemJSON.getDouble("x"), itemJSON.getDouble("y"));
                 System.out.println(itemJSON.get("image"));
@@ -75,7 +79,7 @@ public class ViewInterface {
             Map<String, String> directions = new HashMap<>();
             JSONObject possibleDirections = room.getJSONObject("directions");
 
-            for(String keyDirection: possibleDirections.keySet()) {
+            for (String keyDirection : possibleDirections.keySet()) {
                 directions.put(keyDirection, possibleDirections.getString(keyDirection));
             }
 
@@ -87,11 +91,42 @@ public class ViewInterface {
         return tempMap;
     }
 
-    public static ViewInterface getInstance() {
-        return instance;
-    }
 
     public Map<String, CompartmentData> getRoomData() {
         return compartmentData;
+    }
+
+    public void startGame() {
+
+
+    }
+
+    public void loadGame() {
+
+    }
+
+    public void quitGame() {
+        System.exit(0);
+    }
+
+    public String getInstructions() {
+        return "These are instructions";
+    }
+
+    public CompartmentData goDirection(CompartmentData currentCompartment, String direction) {
+        String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
+        return compartmentData.get(nextCompartmentName);
+    }
+
+    public String talkTo(InteractableData character) {
+        return "Hello. We have not implemented talking to characters yet.";
+    }
+
+    public void takeItem(InteractableData item) {
+
+    }
+
+    public void toggleMusic() {
+
     }
 }
