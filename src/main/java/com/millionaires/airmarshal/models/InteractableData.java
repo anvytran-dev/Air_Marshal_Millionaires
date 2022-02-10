@@ -8,10 +8,14 @@ public class InteractableData {
     private double y;
 
     public InteractableData(String name, String imagePath, double x, double y) {
-        name = "teacher";
-        imagePath = "https://www.bethesdaheadshots.com/wp-content/uploads/2020/02/Jonathan-Business-Headshot.jpg";
-        x = 0;
-        y = 0;
+        this.name = name;
+        this.imagePath = imagePath;
+        this.x = x;
+        this.y = y;
+    }
+
+    public InteractableData() {
+
     }
 
     public String getName() {
@@ -23,7 +27,7 @@ public class InteractableData {
     }
 
     public String getImagePath() {
-        return imagePath;
+        return "file:"+imagePath;
     }
 
     public void setImagePath(String imagePath) {

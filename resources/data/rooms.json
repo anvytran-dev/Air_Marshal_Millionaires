@@ -1,0 +1,273 @@
+{
+  "first class": {
+    "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+    "characters": [
+      {
+        "name": "teacher",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      },
+      {
+        "name": "doctor",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "yellow handkerchief",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "overhead luggage",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "stethoscope",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "carton of cigarettes",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name":"boarding pass",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      }
+    ],
+    "directions": {
+      "forward": "first class",
+      "back": "bathroom",
+      "down": "galley"
+    }
+  },
+  "cockpit": {
+    "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+    "characters": [
+      {
+        "name": "teacher",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      },
+      {
+        "name": "doctor",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "yellow handkerchief",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "overhead luggage",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "stethoscope",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "carton of cigarettes",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name":"boarding pass",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      }
+    ],
+    "directions": {
+      "forward": "first class",
+      "back": "bathroom",
+      "down": "galley"
+    }
+  },
+  "bathroom": {
+    "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+    "characters": [
+      {
+        "name": "teacher",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      },
+      {
+        "name": "doctor",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "yellow handkerchief",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "overhead luggage",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "stethoscope",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "carton of cigarettes",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name":"boarding pass",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      }
+    ],
+    "directions": {
+      "forward": "first class",
+      "back": "bathroom",
+      "down": "galley"
+    }
+  },
+  "galley": {
+    "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+    "characters": [
+      {
+        "name": "teacher",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      },
+      {
+        "name": "doctor",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "yellow handkerchief",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "overhead luggage",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "stethoscope",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "carton of cigarettes",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name":"boarding pass",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      }
+    ],
+    "directions": {
+      "forward": "first class",
+      "back": "bathroom",
+      "down": "galley"
+    }
+  },
+  "cargo": {
+    "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+    "characters": [
+      {
+        "name": "teacher",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      },
+      {
+        "name": "doctor",
+        "x": 342,
+        "y": 234,
+        "image": "whatever.png"
+      }
+    ],
+    "items": [
+      {
+        "name": "yellow handkerchief",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "overhead luggage",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "stethoscope",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name": "carton of cigarettes",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      },
+      {
+        "name":"boarding pass",
+        "x": 300,
+        "y": 300,
+        "image": "handkerchief.png"
+      }
+    ],
+    "directions": {
+      "forward": "first class",
+      "back": "bathroom",
+      "down": "galley"
+    }
+  }
+}
+

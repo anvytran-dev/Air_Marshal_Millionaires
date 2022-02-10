@@ -1,93 +1,57 @@
 {
   "rooms": {
     "commercial class": {
-      "backgroundUrl": "https://theawesomedaily.com/wp-content/uploads/2018/07/cool-backgrounds-feat-1.jpg",
+      "backgroundUrl": "resources/images/CommercialClassView/comclass.jpeg",
       "characters": [
         {
-          "name" : "teacher",
-          "x" : 342,
-          "y" : 234,
-          "image": "whatever.png"
+          "name": "teacher",
+          "x": 342,
+          "y": 234,
+          "image": "resources/images/CommercialClassView/teacher.jpeg"
         },
-        "doctor"
+        {
+          "name": "doctor",
+          "x": 0,
+          "y": 0,
+          "image": "resources/images/CommercialClassView/doc.jpeg"
+        }
       ],
       "items": [
         {
-          "name":"yellow handkerchief",
-          "x": 300,
-          "y":300,
-          "image": "handkerchief.png"
+          "name": "yellow handkerchief",
+          "x": 0,
+          "y": 0,
+          "image": "resources/images/CommercialClassView/handkerchief.png"
         },
-        "overhead luggage",
-        "stethoscope",
-        "carton of cigarettes",
-        "boarding pass"
+        {
+          "name": "overhead luggage",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CommercialClassView/luggage.png"
+        },
+        {
+          "name": "stethoscope",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CommercialClassView/stethoscope.png"
+        },
+        {
+          "name": "carton of cigarettes",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CommercialClassView/cigarette.png"
+        },
+        {
+          "name":"boarding pass",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CommercialClassView/pass.png"
+        }
       ],
       "directions": {
         "forward": "first class",
         "back": "bathroom",
         "down": "galley"
-      }
-    },
-    "first class": {
-      "characters": [
-        "stewardess",
-        "lawyer"
-      ],
-      "items": [
-        "ski pole",
-        "check book"
-      ],
-      "directions": {
-        "forward": "cockpit",
-        "back": "commercial class"
-      }
-    },
-    "cockpit": {
-      "characters": [
-        "pilot",
-        "first officer"
-      ],
-      "items": [
-        "flight manual",
-        "aircraft guide"
-      ],
-      "directions": {
-        "back": "first class"
-      }
-    },
-    "bathroom": {
-      "characters": [],
-      "items": [
-        "poster"
-      ],
-      "directions": {
-        "forward": "commercial class"
-      }
-    },
-    "galley": {
-      "characters": ["cook"],
-      "items": [
-        "drinks",
-        "food",
-        "spatula",
-        "cargo key"
-      ],
-      "directions": {
-        "up": "commercial class",
-        "forward": "cargo"
-      }
-    },
-    "cargo": {
-      "characters": [],
-      "items": [
-        "lawyers bag",
-        "doctors bag",
-        "anonymous characters bag",
-        "poison"
-      ],
-      "directions": {
-        "back": "galley"
       }
     }
   }

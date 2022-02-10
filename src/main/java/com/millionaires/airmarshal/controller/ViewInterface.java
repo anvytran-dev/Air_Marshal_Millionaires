@@ -51,11 +51,11 @@ public class ViewInterface {
 
             //convert list of characters to List<InteractableData>
             List<InteractableData> chars = new ArrayList<>();
-            JSONArray listOfCharacters = (JSONArray) room.get("characters");
-            InteractableData person;
+            JSONArray listOfCharacters = room.getJSONArray("characters");
+
             for(Object character : listOfCharacters) {
                 JSONObject charJSON = (JSONObject) character;
-                person = new InteractableData(charJSON.getString("name"), charJSON.getString("image"), charJSON.getDouble("x"), charJSON.getDouble("y"));
+                InteractableData person = new InteractableData(charJSON.getString("name"), charJSON.getString("image"), charJSON.getDouble("x"), charJSON.getDouble("y"));
 
                 chars.add(person);
             }
@@ -67,10 +67,14 @@ public class ViewInterface {
             tempMap.put(key, cd);
         }
 
-
+        return tempMap;
     }
 
     public static ViewInterface getInstance() {
         return instance;
+    }
+
+    public Map<String, CompartmentData> getRoomData() {
+        return compartmentData;
     }
 }

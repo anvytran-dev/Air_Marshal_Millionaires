@@ -1,9 +1,9 @@
 package com.millionaires.airmarshal.models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+        import java.util.ArrayList;
+        import java.util.HashMap;
+        import java.util.List;
+        import java.util.Map;
 
 public class CompartmentData {
 
@@ -12,16 +12,13 @@ public class CompartmentData {
     private List<InteractableData> items;
     private Map<String, String> directions;
 
-    public CompartmentData(String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
-        backgroundUrl = "resources/images/comclass.jpeg";
 
-        characters = List.of(
-              new InteractableData()
-        );
-        items = List.of(
-               new InteractableData()
-        );
-        directions = Map.of("forward", "first class");
+
+    public CompartmentData(String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
+        this.backgroundUrl = backgroundUrl;
+        this.characters = characters;
+        this.items = items;
+        this.directions = directions;
     }
 
     public String getBackgroundUrl() {
@@ -60,3 +57,4 @@ public class CompartmentData {
         return directions.get(direction);
     }
 }
+
