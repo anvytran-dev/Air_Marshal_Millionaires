@@ -1,4 +1,4 @@
-package com.nimble_four.AirMarshal;
+package com.millionaires.airmarshal;
 
 import java.util.ArrayList;
 import java.util.List;

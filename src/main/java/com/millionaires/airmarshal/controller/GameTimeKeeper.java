@@ -1,10 +1,9 @@
-package com.nimble_four.AirMarshal.controller;
-import com.apps.util.Console;
-import com.nimble_four.AirMarshal.Player;
-import com.nimble_four.AirMarshal.music.MusicPlayer;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+package com.millionaires.airmarshal.controller;
+
+import com.millionaires.airmarshal.Player;
+import com.millionaires.airmarshal.music.MusicPlayer;
+import org.json.JSONObject;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -94,12 +93,11 @@ public class GameTimeKeeper extends Timer {
     }
 
     public void gameOver(Player player, Scanner scanner) {
-        Console.clear();
         JSONObject gameOverDialogue = null;
         try {
-            gameOverDialogue = (JSONObject) new JSONParser().parse(new FileReader("resources/endgame.json"));
+            gameOverDialogue = new JSONObject(new FileReader("resources/endgame.json"));
             Files.readAllLines(Path.of("resources/data/game_over.txt")).forEach(System.out::println);
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
