@@ -27,6 +27,7 @@ public class InteractableData {
     }
 
     public String getImagePath() {
+        System.out.println(imagePath);
         return "file:"+imagePath;
     }
 

@@ -5,14 +5,14 @@
       "characters": [
         {
           "name": "teacher",
-          "x": 342,
-          "y": 234,
+          "x": 300,
+          "y": 300,
           "image": "resources/images/CommercialClassView/teacher.jpeg"
         },
         {
           "name": "doctor",
-          "x": 0,
-          "y": 0,
+          "x": 300,
+          "y": 300,
           "image": "resources/images/CommercialClassView/doc.jpeg"
         }
       ],

@@ -19,6 +19,8 @@ public class Main extends Application {
 
         CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
 
+        System.out.println(ViewInterface.getInstance().getRoomData().get("commercial class").getItems().size());
+
         Scene scene = new Scene(new CompartmentView(cd), 320, 240);
 
         System.out.println(ViewInterface.getInstance().getRoomData());

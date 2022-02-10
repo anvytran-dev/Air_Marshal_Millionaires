@@ -60,9 +60,26 @@ public class ViewInterface {
                 chars.add(person);
             }
 
-            Map<String, String> directions = new HashMap<>();
+            //convert items
+            List<InteractableData> items = new ArrayList<>();
+            JSONArray listOfItems = room.getJSONArray("items");
 
-            CompartmentData cd = new CompartmentData(room.getString("backgroundUrl"), chars, chars, directions);
+            for(Object item : listOfItems) {
+                JSONObject itemJSON = (JSONObject) item;
+                InteractableData itemInRoom = new InteractableData(itemJSON.getString("name"), itemJSON.getString("image"), itemJSON.getDouble("x"), itemJSON.getDouble("y"));
+                System.out.println(itemJSON.get("image"));
+                items.add(itemInRoom);
+            }
+
+
+            Map<String, String> directions = new HashMap<>();
+            JSONObject possibleDirections = room.getJSONObject("directions");
+
+            for(String keyDirection: possibleDirections.keySet()) {
+                directions.put(keyDirection, possibleDirections.getString(keyDirection));
+            }
+
+            CompartmentData cd = new CompartmentData(room.getString("backgroundUrl"), chars, items, directions);
 
             tempMap.put(key, cd);
         }

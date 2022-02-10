@@ -18,6 +18,9 @@ public class CompartmentView extends Pane {
         for(InteractableData iData : data.getCharacters())
             interactables.add(new Interactable(iData));
 
+        for(InteractableData itemsData : data.getItems())
+            interactables.add(new Interactable(itemsData));
+
         getChildren().addAll(interactables);
 
         setBackground(getBackgroundImage(data.getBackgroundUrl()));
