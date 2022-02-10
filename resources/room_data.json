@@ -53,6 +53,158 @@
         "back": "bathroom",
         "down": "galley"
       }
+    },
+    "first class": {
+      "backgroundUrl": "resources/images/FirstClassView/bg.jpg",
+      "characters": [
+        {
+          "name": "stewardess",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/FirstClassView/flightattendant.png"
+        },
+        {
+          "name": "lawyer",
+          "x": 500,
+          "y": 500,
+          "image": "resources/images/FirstClassView/lawyer.png"
+        }
+      ],
+      "items": [
+        {
+          "name": "check book",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/FirstClassView/checkbook.png"
+        },
+        {
+          "name": "ski pole",
+          "x": 500,
+          "y": 500,
+          "image": "resources/images/FirstClassView/skipole.png"
+        }
+      ],
+      "directions": {
+        "forward": "cockpit",
+        "back": "commercial class"
+      }
+    },
+    "cockpit": {
+      "backgroundUrl": "resources/images/CockpitView/bg.png",
+      "characters": [
+        {
+          "name": "pilot",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CockpitView/pilot.png"
+        },
+        {
+          "name": "first officer",
+          "x": 500,
+          "y": 500,
+          "image": "resources/images/CockpitView/pilot.png"
+        }
+      ],
+      "items": [
+        {
+          "name": "aircraft guide",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CockpitView/guide.png"
+        },
+        {
+          "name": "manual",
+          "x": 500,
+          "y": 500,
+          "image": "resources/images/CockpitView/manual.png"
+        }
+      ],
+      "directions": {
+        "back": "first class"
+      }
+    },
+    "bathroom": {
+      "backgroundUrl": "resources/images/BathroomView/bathroom.jpeg",
+      "characters": [],
+      "items": [
+        {
+          "name": "poster",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/BathroomView/poster.jpeg"
+        }
+      ],
+      "directions": {
+        "forward": "commercial class"
+      }
+    },
+    "galley": {
+      "backgroundUrl": "resources/images/GalleyView/galley.jpeg",
+      "characters": [
+        {
+          "name": "cook",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/GalleyView/cook.jpeg"
+        }
+      ],
+      "items": [
+        {
+          "name": "drinks",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/GalleyView/drinks.jpeg"
+        },
+        {
+          "name": "food",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/GalleyView/food.jpeg"
+        },
+        {
+          "name": "key",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/GalleyView/key.jpeg"
+        }
+      ],
+      "directions": {
+        "forward": "cargo",
+        "up": "commercial class"
+      }
+    },
+    "cargo": {
+      "backgroundUrl": "resources/images/CargoView/cargo.jpeg",
+      "characters": [],
+      "items": [
+        {
+          "name": "bag",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CargoView/bag.jpeg"
+        },
+        {
+          "name": "bag2",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CargoView/bag2.jpeg"
+        },
+        {
+          "name": "bag3",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CargoView/bag3.jpeg"
+        },
+        {
+          "name": "poison",
+          "x": 300,
+          "y": 300,
+          "image": "resources/images/CargoView/poison.jpeg"
+        }
+      ],
+      "directions": {
+        "back": "galley"
+      }
     }
   }
 }
