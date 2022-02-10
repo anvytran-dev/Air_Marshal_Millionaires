@@ -12,7 +12,7 @@ public class CompartmentData {
     private List<InteractableData> items;
     private Map<String, String> directions;
 
-    public CompartmentData(){
+    public CompartmentData(String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
         backgroundUrl = "resources/images/comclass.jpeg";
 
         characters = List.of(

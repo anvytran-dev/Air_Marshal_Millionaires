@@ -7,7 +7,7 @@ public class InteractableData {
     private double x;
     private double y;
 
-    public InteractableData() {
+    public InteractableData(String name, String imagePath, double x, double y) {
         name = "teacher";
         imagePath = "https://www.bethesdaheadshots.com/wp-content/uploads/2020/02/Jonathan-Business-Headshot.jpg";
         x = 0;
