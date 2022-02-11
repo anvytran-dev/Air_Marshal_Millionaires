@@ -32,14 +32,12 @@ public class Main extends Application {
 //        System.out.println(ViewInterface.getInstance().getRoomData().get("commercial class").getItems().size());
 
         Scene scene = new Scene(new MainMenuView());
-
-        System.out.println(ViewInterface.getInstance().getRoomData());
-        stage.setTitle("Hello!");
+        stage.setTitle("Air Marshall - Millionaires");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
 
-
+        ViewInterface.getInstance().setScene(scene);
     }
 
     public static void main(String[] args) {

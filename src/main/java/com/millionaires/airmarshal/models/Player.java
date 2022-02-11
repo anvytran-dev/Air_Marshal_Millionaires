@@ -17,7 +17,7 @@ public class Player {
     /**
      * @return the singleton Player instance
      */
-    public Player getInstance(){
+    public static Player getInstance(){
         return instance;
     }
 

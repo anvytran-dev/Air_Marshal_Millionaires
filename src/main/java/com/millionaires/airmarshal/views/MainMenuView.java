@@ -1,44 +1,55 @@
 package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
-import com.millionaires.airmarshal.models.CompartmentData;
-import com.millionaires.airmarshal.models.InteractableData;
-import com.millionaires.airmarshal.views.components.Interactable;
+import com.millionaires.airmarshal.views.components.NameCollector;
+import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainMenuView extends VBox {
 
+    HBox dynamicArea = new HBox();
+
+    private MenuButtons menuButtons;
+    private NameCollector nameCollector;
+    private boolean showingNameCollector = false;
 
     public MainMenuView() {
         super();
         setStyle("-fx-font-family: 'sans-serif'");
 
+        // The text logo
         ImageView logo = new ImageView(getPath("large_logo.png"));
+        logo.setEffect(new DropShadow(60, Color.BLACK));
 
         // Get the plane image and set properties
         ImageView plane = new ImageView(getPath("plane.png"));
         plane.setFitWidth(600);
         plane.setPreserveRatio(true);
 
+        // For some reason, instantiating these outside of constructor disables onAction.
+        // So declaring here instead
+        menuButtons = new MenuButtons();
+        nameCollector = new NameCollector(hideNameCollector);
+
+        dynamicArea.getChildren().add(menuButtons);
+        dynamicArea.setAlignment(Pos.CENTER);
+        dynamicArea.setPadding(new Insets(100,0,0,0));
+
         // Add all the children to the view and set properties
-        getChildren().addAll(plane, logo, new MenuButtons());
+        getChildren().addAll(plane, logo, dynamicArea);
         setAlignment(Pos.BASELINE_CENTER);
         setBackground(getBackgroundImage(getPath("bg.png")));
         setSpacing(5);
-
-
+        setPadding(new Insets(50, 0, 0, 0));
     }
 
     private String getPath(String fileName) {
@@ -52,38 +63,38 @@ public class MainMenuView extends VBox {
         return new Background(bgImage);
     }
 
-    private class MainMenuButton extends Button {
-        MainMenuButton(String text, EventHandler<ActionEvent> function) {
-            super();
-            setText(text);
-            setPrefWidth(300);
-            setFont(Font.font(20));
-            setOnAction(function);
-            setTextFill(Color.WHITE);
-
-
-
-
-        }
-    }
-
-    private class MenuButtons extends VBox {
+    class MenuButtons extends VBox {
         MenuButtons() {
             super();
-//            setStyle("-fx-font-family: 'sans-serif'");
-            MainMenuButton play = new MainMenuButton("Play", playGame);
-            MainMenuButton load = new MainMenuButton("Load", playGame);
-            MainMenuButton instructions = new MainMenuButton("Instructions", playGame);
-            MainMenuButton quit = new MainMenuButton("Quit", quitGame);
-            getChildren().addAll(play, load, instructions, quit);
-            setAlignment(Pos.BASELINE_CENTER);
+
+            StandardButton playBtn = new StandardButton("Play", showNameCollector);
+            playBtn.setPrefWidth(200);
+
+            StandardButton loadBtn = new StandardButton("Load", showNameCollector);
+            loadBtn.setPrefWidth(200);
+
+            StandardButton instBtn = new StandardButton("Instructions", showNameCollector);
+            instBtn.setPrefWidth(200);
+
+            StandardButton quitBtn = new StandardButton("Quit", quitGame);
+            quitBtn.setPrefWidth(200);
+
+            getChildren().addAll(playBtn, loadBtn, instBtn, quitBtn);
+            setAlignment(Pos.CENTER);
             setSpacing(5);
-
-
         }
     }
+    EventHandler<ActionEvent> hideNameCollector = actionEvent -> {
+        dynamicArea.getChildren().clear();
+        dynamicArea.getChildren().addAll(new MenuButtons());
+    };
 
-    EventHandler<ActionEvent> playGame = event -> System.out.println("Clicked play");
+    EventHandler<ActionEvent> showNameCollector = actionEvent -> {
+        dynamicArea.getChildren().clear();
+        dynamicArea.getChildren().add(new NameCollector(hideNameCollector));
+    };
+
+
 
     EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
 

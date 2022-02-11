@@ -3,29 +3,27 @@ package com.millionaires.airmarshal.controller;
 
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
-import org.json.JSONArray;
+import com.millionaires.airmarshal.models.Player;
+import com.millionaires.airmarshal.views.CompartmentView;
+import com.millionaires.airmarshal.views.GameView;
+import javafx.scene.Scene;
 import org.json.JSONObject;
-
-import javax.swing.text.View;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.CharBuffer;
 import java.util.*;
 
 public class ViewInterface {
     // Singleton
 
     private static final ViewInterface instance = new ViewInterface();
+    private Scene scene;
 
     public static ViewInterface getInstance() {
         return instance;
     }
 
-
     // Class methods below
     private Map<String, CompartmentData> compartmentData = loadCompartmentData();
+    private GameView gameView;
 
     private ViewInterface() {}
 
@@ -65,8 +63,7 @@ public class ViewInterface {
     }
 
     public void startGame() {
-
-
+        scene.setRoot(new GameView(new CompartmentView(getCompartmentData("commercial class"))));
     }
 
     public void loadGame() {
@@ -96,5 +93,30 @@ public class ViewInterface {
 
     public void toggleMusic() {
 
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    private CompartmentData getCompartmentData(String compartmentName){
+        return compartmentData.get(compartmentName);
+    }
+
+    /**
+     * Sets the player's name
+     * @param name - the name to set on the player
+     * @return true if setting name was successful, false if it was unsuccessful
+     */
+    public boolean setPlayerName(String name) {
+        if(name == null || name.isEmpty())
+            return false;
+
+        Player.getInstance().setName(name);
+        return true;
+    }
+
+    public String getPlayerName() {
+        return Player.getInstance().getName();
     }
 }
