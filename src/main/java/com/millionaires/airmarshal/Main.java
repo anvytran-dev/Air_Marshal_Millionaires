@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        CompartmentData cd = ViewInterface.getInstance().getRoomData().get("cockpit");
+        CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
         Scene scene = new Scene(new GameView(new CompartmentView(cd)));
 //        Scene scene = new Scene(new MainMenuView());
         stage.setTitle("Air Marshall - Millionaires");

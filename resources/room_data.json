@@ -7,13 +7,13 @@
           "name": "teacher",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/teacher.jpeg"
+          "image": "resources/images/CommercialClassView/teacher.png"
         },
         {
           "name": "doctor",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/doc.jpeg"
+          "image": "resources/images/CommercialClassView/doc.png"
         }
       ],
       "items": [
