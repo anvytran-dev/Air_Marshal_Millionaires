@@ -8,7 +8,10 @@ import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameView;
 import javafx.scene.Scene;
 import org.json.JSONObject;
+
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class ViewInterface {
@@ -25,7 +28,8 @@ public class ViewInterface {
     private Map<String, CompartmentData> compartmentData = loadCompartmentData();
     private GameView gameView;
 
-    private ViewInterface() {}
+    private ViewInterface() {
+    }
 
     private Map<String, CompartmentData> loadCompartmentData() {
         //[{}, {}]
@@ -75,7 +79,15 @@ public class ViewInterface {
     }
 
     public String getInstructions() {
-        return "These are instructions";
+        try {
+            List<String> insts = Files.readAllLines(Path.of("resources/data/game_instructions.txt"));
+            return String.join("\n", insts);
+
+        } catch (Exception e) {
+            System.out.println("Caught error while trying to read instructions");
+            return "Unable to read instructions";
+        }
+
     }
 
     public CompartmentData goDirection(CompartmentData currentCompartment, String direction) {
@@ -99,17 +111,18 @@ public class ViewInterface {
         this.scene = scene;
     }
 
-    private CompartmentData getCompartmentData(String compartmentName){
+    private CompartmentData getCompartmentData(String compartmentName) {
         return compartmentData.get(compartmentName);
     }
 
     /**
      * Sets the player's name
+     *
      * @param name - the name to set on the player
      * @return true if setting name was successful, false if it was unsuccessful
      */
     public boolean setPlayerName(String name) {
-        if(name == null || name.isEmpty())
+        if (name == null || name.isEmpty())
             return false;
 
         Player.getInstance().setName(name);

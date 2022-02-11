@@ -1,11 +1,3 @@
-
-  _____           _                   _   _
- |_   _|         | |                 | | (_)
-   | |  _ __  ___| |_ _ __ _   _  ___| |_ _  ___  _ __  ___
-   | | | '_ \/ __| __| '__| | | |/ __| __| |/ _ \| '_ \/ __|
-  _| |_| | | \__ \ |_| |  | |_| | (__| |_| | (_) | | | \__ \
- |_____|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|___/
-
 Your mission, as the Air Marshal, is to keep the flight passengers safe. In order to do so you have to determine who
 is the criminal. To help you achieve this you will have to go around the plane, to talk to the passengers and crew,
 and gather items.
@@ -19,6 +11,6 @@ To play the game you will be prompted with what do you what to do. Your options 
 3. Items - this option will allow you to see the items that are in the room and the player will be prompted
            to select which item to collect. Enter the item name you wish to collect.
 4. Inventory - this option will display the items the player has collected. You also have the option to drop items.
-5. Options - this option allows you to
+5. Options - this option allows you to things
 
 To win the game you, as the Air Marshal, have to guess who the criminal is.

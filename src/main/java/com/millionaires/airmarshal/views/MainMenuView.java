@@ -1,6 +1,7 @@
 package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
+import com.millionaires.airmarshal.views.components.InstructionsDisplay;
 import com.millionaires.airmarshal.views.components.NameCollector;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
@@ -12,15 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class MainMenuView extends VBox {
 
     HBox dynamicArea = new HBox();
-
-    private MenuButtons menuButtons;
-    private NameCollector nameCollector;
-    private boolean showingNameCollector = false;
 
     public MainMenuView() {
         super();
@@ -37,8 +33,8 @@ public class MainMenuView extends VBox {
 
         // For some reason, instantiating these outside of constructor disables onAction.
         // So declaring here instead
-        menuButtons = new MenuButtons();
-        nameCollector = new NameCollector(hideNameCollector);
+        MenuButtons menuButtons = new MenuButtons();
+        NameCollector nameCollector = new NameCollector(showMainMenuButtons);
 
         dynamicArea.getChildren().add(menuButtons);
         dynamicArea.setAlignment(Pos.CENTER);
@@ -73,7 +69,7 @@ public class MainMenuView extends VBox {
             StandardButton loadBtn = new StandardButton("Load", showNameCollector);
             loadBtn.setPrefWidth(200);
 
-            StandardButton instBtn = new StandardButton("Instructions", showNameCollector);
+            StandardButton instBtn = new StandardButton("Instructions", showInstructions);
             instBtn.setPrefWidth(200);
 
             StandardButton quitBtn = new StandardButton("Quit", quitGame);
@@ -84,14 +80,20 @@ public class MainMenuView extends VBox {
             setSpacing(5);
         }
     }
-    EventHandler<ActionEvent> hideNameCollector = actionEvent -> {
+    EventHandler<ActionEvent> showMainMenuButtons = actionEvent -> {
         dynamicArea.getChildren().clear();
         dynamicArea.getChildren().addAll(new MenuButtons());
     };
 
     EventHandler<ActionEvent> showNameCollector = actionEvent -> {
         dynamicArea.getChildren().clear();
-        dynamicArea.getChildren().add(new NameCollector(hideNameCollector));
+        dynamicArea.getChildren().add(new NameCollector(showMainMenuButtons));
+    };
+
+    EventHandler<ActionEvent> showInstructions = actionEvent -> {
+        dynamicArea.getChildren().clear();
+        String instructions = ViewInterface.getInstance().getInstructions();
+        dynamicArea.getChildren().add(new InstructionsDisplay(instructions, showMainMenuButtons));
     };
 
 
