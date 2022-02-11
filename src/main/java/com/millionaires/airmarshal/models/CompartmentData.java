@@ -1,5 +1,8 @@
 package com.millionaires.airmarshal.models;
 
+        import org.json.JSONArray;
+        import org.json.JSONObject;
+
         import java.util.ArrayList;
         import java.util.HashMap;
         import java.util.List;
@@ -12,6 +15,34 @@ public class CompartmentData {
     private List<InteractableData> items;
     private Map<String, String> directions;
 
+
+    public static CompartmentData fromJson(JSONObject room){
+
+        //convert list of characters to List<InteractableData>
+        List<InteractableData> chars = new ArrayList<>();
+        JSONArray listOfCharacters = room.getJSONArray("characters");
+
+        for (Object character : listOfCharacters) {
+            chars.add(InteractableData.fromJson((JSONObject) character));
+        }
+
+        //convert items
+        List<InteractableData> items = new ArrayList<>();
+        JSONArray listOfItems = room.getJSONArray("items");
+
+        for (Object item : listOfItems) {
+            items.add(InteractableData.fromJson((JSONObject) item));
+        }
+
+        Map<String, String> directions = new HashMap<>();
+        JSONObject possibleDirections = room.getJSONObject("directions");
+
+        for (String keyDirection : possibleDirections.keySet()) {
+            directions.put(keyDirection, possibleDirections.getString(keyDirection));
+        }
+
+        return new CompartmentData(room.getString("backgroundUrl"), chars, items, directions);
+    }
 
 
     public CompartmentData(String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){

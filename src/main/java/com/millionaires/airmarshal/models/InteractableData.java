@@ -1,5 +1,7 @@
 package com.millionaires.airmarshal.models;
 
+import org.json.JSONObject;
+
 public class InteractableData {
 
     private String name;
@@ -18,6 +20,15 @@ public class InteractableData {
 
     }
 
+    public static InteractableData fromJson(JSONObject interactableData) {
+        return new InteractableData(
+                interactableData.getString("name"),
+                interactableData.getString("image"),
+                interactableData.getDouble("x"),
+                interactableData.getDouble("y")
+        );
+    }
+
     public String getName() {
         return name;
     }
@@ -28,7 +39,7 @@ public class InteractableData {
 
     public String getImagePath() {
         System.out.println(imagePath);
-        return "file:"+imagePath;
+        return "file:" + imagePath;
     }
 
     public void setImagePath(String imagePath) {
