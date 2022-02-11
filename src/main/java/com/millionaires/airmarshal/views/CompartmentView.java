@@ -41,4 +41,8 @@ public class CompartmentView extends Pane {
         BackgroundImage bgImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, size);
         return new Background(bgImage);
     }
+
+    private void showDialog(String text){
+
+    }
 }
