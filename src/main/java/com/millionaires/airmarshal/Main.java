@@ -4,6 +4,7 @@ import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameView;
+import com.millionaires.airmarshal.views.MainMenuView;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -15,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         CompartmentData cd = ViewInterface.getInstance().getRoomData().get("commercial class");
-        Scene scene = new Scene(new GameView(new CompartmentView(cd)));
-//        Scene scene = new Scene(new MainMenuView());
+//        Scene scene = new Scene(new GameView(new CompartmentView(cd)));
+        Scene scene = new Scene(new MainMenuView());
         stage.setTitle("Air Marshall - Millionaires");
         stage.setScene(scene);
         stage.setMaximized(true);

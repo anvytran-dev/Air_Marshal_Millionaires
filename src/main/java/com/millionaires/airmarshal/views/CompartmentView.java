@@ -2,6 +2,7 @@ package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
+import com.millionaires.airmarshal.views.components.CharacterDisplay;
 import com.millionaires.airmarshal.views.components.Interactable;
 import com.millionaires.airmarshal.views.components.ItemsDisplay;
 import javafx.geometry.Insets;
@@ -19,31 +20,33 @@ public class CompartmentView extends AnchorPane {
         super();
 
 
+//
+//
+//        HBox characters = new HBox();
+//        for (InteractableData iData : data.getCharacters()) {
+//            Interactable character = new Interactable(iData);
+//            character.setFitHeight(CHARACTER_HEIGHT);
+//            character.setPreserveRatio(true);
+//            characters.getChildren().add(character);
+//
+//        }
+//        HBox items = new HBox();
+//        items.setSpacing(100);
+//        items.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+//        items.setAlignment(Pos.CENTER);
+//        for (InteractableData itemsData : data.getItems()) {
+//            Interactable item = new Interactable(itemsData);
+//            item.setFitHeight(ITEM_HEIGHT);
+//            item.setPreserveRatio(true);
+//            items.getChildren().add(item);
+//        }
 
-
-        HBox characters = new HBox();
-        for (InteractableData iData : data.getCharacters()) {
-            Interactable character = new Interactable(iData);
-            character.setFitHeight(CHARACTER_HEIGHT);
-            character.setPreserveRatio(true);
-            characters.getChildren().add(character);
-
-        }
-        HBox items = new HBox();
-        items.setSpacing(100);
-        items.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        items.setAlignment(Pos.CENTER);
-        for (InteractableData itemsData : data.getItems()) {
-            Interactable item = new Interactable(itemsData);
-            item.setFitHeight(ITEM_HEIGHT);
-            item.setPreserveRatio(true);
-            items.getChildren().add(item);
-        }
-
+        CharacterDisplay characters =  new CharacterDisplay(data.getCharacters());
         getChildren().add(characters);
         setBottomAnchor(characters, 0.0);
 
-        getChildren().add(new ItemsDisplay(data.getItems()));
+        ItemsDisplay items = new ItemsDisplay(data.getItems());
+        getChildren().add(items);
         setTopAnchor(items, 0.0);
 
 
