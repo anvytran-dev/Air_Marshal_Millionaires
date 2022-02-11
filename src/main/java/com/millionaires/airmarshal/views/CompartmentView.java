@@ -3,34 +3,49 @@ package com.millionaires.airmarshal.views;
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.views.components.Interactable;
+import com.millionaires.airmarshal.views.components.ItemsDisplay;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CompartmentView extends Pane {
-
-    private final double CHARACTER_HEIGHT = 300;
+public class CompartmentView extends AnchorPane {
+    private final double CHARACTER_HEIGHT = 500;
     private final double ITEM_HEIGHT = 100;
 
     public CompartmentView(CompartmentData data) {
+        super();
 
-        List<Interactable> interactables = new ArrayList<>();
-        for(InteractableData iData : data.getCharacters()) {
+
+
+
+        HBox characters = new HBox();
+        for (InteractableData iData : data.getCharacters()) {
             Interactable character = new Interactable(iData);
             character.setFitHeight(CHARACTER_HEIGHT);
             character.setPreserveRatio(true);
-            interactables.add(character);
+            characters.getChildren().add(character);
+
         }
-        for(InteractableData itemsData : data.getItems()) {
+        HBox items = new HBox();
+        items.setSpacing(100);
+        items.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        items.setAlignment(Pos.CENTER);
+        for (InteractableData itemsData : data.getItems()) {
             Interactable item = new Interactable(itemsData);
             item.setFitHeight(ITEM_HEIGHT);
             item.setPreserveRatio(true);
-            interactables.add(item);
+            items.getChildren().add(item);
         }
-        getChildren().addAll(interactables);
+
+        getChildren().add(characters);
+        setBottomAnchor(characters, 0.0);
+
+        getChildren().add(new ItemsDisplay(data.getItems()));
+        setTopAnchor(items, 0.0);
+
 
         setBackground(getBackgroundImage(data.getBackgroundUrl()));
     }
@@ -40,9 +55,5 @@ public class CompartmentView extends Pane {
         BackgroundSize size = new BackgroundSize(1, 1, true, true, true, true);
         BackgroundImage bgImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, size);
         return new Background(bgImage);
-    }
-
-    private void showDialog(String text){
-
     }
 }

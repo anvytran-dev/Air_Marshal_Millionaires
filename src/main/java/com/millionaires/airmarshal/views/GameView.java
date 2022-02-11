@@ -4,9 +4,7 @@ import com.millionaires.airmarshal.views.components.DialogBox;
 import com.millionaires.airmarshal.views.components.SideMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 public class GameView extends StackPane {
@@ -16,15 +14,14 @@ public class GameView extends StackPane {
     public GameView(CompartmentView compartment) {
         super();
         dialogBox = new DialogBox("Default text", hideDialogBox);
+        dialogBox.setVisible(false);
+        BorderPane pane = new BorderPane(compartment);
 
-        Button showDialogButton = new Button("Show dialog");
-        showDialogButton.setOnAction(showDialogBox);
+        SideMenu sm = new SideMenu();
+        sm.setPrefWidth(300);
+        pane.setRight(sm);
 
-        Button setTextButton = new Button("Set text");
-        setTextButton.setOnAction(setDialog);
-
-        HBox compartmentAndMenu = new HBox(compartment, new SideMenu(), showDialogButton, setTextButton);
-        getChildren().addAll(compartmentAndMenu, dialogBox);
+        getChildren().addAll(pane, dialogBox);
     }
 
     private EventHandler<ActionEvent> showDialogBox = actionEvent -> {
@@ -38,6 +35,4 @@ public class GameView extends StackPane {
     private EventHandler<ActionEvent> setDialog = actionEvent -> {
         dialogBox.setText("Hello world!");
     };
-
-
 }

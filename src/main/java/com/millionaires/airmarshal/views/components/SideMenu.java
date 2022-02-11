@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -17,13 +18,11 @@ public class SideMenu extends VBox {
 
     Inventory inventory = new Inventory();
     MenuOptions menuOptions = new MenuOptions();
-    Directionals directionals= new Directionals();
+    Directionals directionals = new Directionals();
     boolean shouldShowInventory = true;
 
 
-
-
-    public SideMenu(){
+    public SideMenu() {
 
         Text currentCompartment = new Text("Commercial");
         Label timeRemaining = new Label("Time Remaining : 04 : 36");
@@ -38,37 +37,31 @@ public class SideMenu extends VBox {
         currentCompartment.setY(50);
         topSection.setAlignment(Pos.CENTER);
 
-        this.getChildren().addAll(topSection,inventory, directionals);
+        this.getChildren().addAll(topSection, inventory, directionals);
 
 
-
-
-        setBackground(new Background(new BackgroundFill(Color.GREY, new CornerRadii(5),Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
-
+        setEffect(new DropShadow(50, Color.BLACK));
 
     }
 
 
-   EventHandler menuButtonFunction = new EventHandler() {
-       @Override
-       public void handle(Event event) {
-           getChildren().remove(1);
-           if (shouldShowInventory){
-               getChildren().add(1,inventory);
+    EventHandler menuButtonFunction = new EventHandler() {
+        @Override
+        public void handle(Event event) {
+            getChildren().remove(1);
+            if (shouldShowInventory) {
+                getChildren().add(1, inventory);
 
-           }else{
-               getChildren().add(1,menuOptions);
+            } else {
+                getChildren().add(1, menuOptions);
 
-           }
-           shouldShowInventory = !shouldShowInventory;
+            }
+            shouldShowInventory = !shouldShowInventory;
 
-       }
-   };
-
-
-
-
+        }
+    };
 
 
 }
