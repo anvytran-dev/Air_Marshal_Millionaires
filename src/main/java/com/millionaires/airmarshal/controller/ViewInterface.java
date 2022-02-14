@@ -55,7 +55,7 @@ public class ViewInterface {
 
         for (String key : roomData.keySet()) {
             JSONObject room = roomData.getJSONObject(key);
-            CompartmentData cd = CompartmentData.fromJson(room);
+            CompartmentData cd = CompartmentData.fromJson(room, key);
             tempMap.put(key, cd);
         }
 
@@ -141,5 +141,9 @@ public class ViewInterface {
 
     public String[] getAvailableCompartmentDirections() {
         return currentCompartment.getDirections().keySet().toArray(new String[0]);
+    }
+
+    public String getCompartmentName() {
+        return currentCompartment.getName();
     }
 }

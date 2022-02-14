@@ -10,13 +10,14 @@ package com.millionaires.airmarshal.models;
 
 public class CompartmentData {
 
+    private String name;
     private String backgroundUrl;
     private List<InteractableData> characters;
     private List<InteractableData> items;
     private Map<String, String> directions;
 
 
-    public static CompartmentData fromJson(JSONObject room){
+    public static CompartmentData fromJson(JSONObject room, String roomName){
 
         //convert list of characters to List<InteractableData>
         List<InteractableData> chars = new ArrayList<>();
@@ -41,11 +42,12 @@ public class CompartmentData {
             directions.put(keyDirection, possibleDirections.getString(keyDirection));
         }
 
-        return new CompartmentData(room.getString("backgroundUrl"), chars, items, directions);
+        return new CompartmentData(roomName,room.getString("backgroundUrl"), chars, items, directions);
     }
 
 
-    public CompartmentData(String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
+    public CompartmentData(String name, String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
+        this.name = name;
         this.backgroundUrl = backgroundUrl;
         this.characters = characters;
         this.items = items;
@@ -86,6 +88,10 @@ public class CompartmentData {
 
     public String getNextCompartmentName(String direction) {
         return directions.get(direction);
+    }
+
+    public String getName() {
+        return name;
     }
 }
 

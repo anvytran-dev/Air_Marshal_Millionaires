@@ -14,7 +14,7 @@ public class Directionals extends HBox {
 
     ViewInterface api = ViewInterface.getInstance();
 
-    public Directionals(){
+    public Directionals(EventHandler<ActionEvent> goForward, EventHandler<ActionEvent> goBack, EventHandler<ActionEvent> goLeft, EventHandler<ActionEvent> goRight){
         Button forwardButton = getButton("↑", goForward);
         Button backButton = getButton("↓", goBack);
         Button leftButton = getButton("←", goLeft);
@@ -54,8 +54,5 @@ public class Directionals extends HBox {
         return dirButton;
     }
 
-    EventHandler<ActionEvent> goForward = actionEvent -> api.goDirection("forward");
-    EventHandler<ActionEvent> goBack = actionEvent -> api.goDirection("back");
-    EventHandler<ActionEvent> goLeft = actionEvent -> api.goDirection("left");
-    EventHandler<ActionEvent> goRight = actionEvent -> api.goDirection("right");
+
 }

@@ -1,6 +1,8 @@
 package com.millionaires.airmarshal.views.components;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import javafx.animation.Transition;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,15 +18,47 @@ import javafx.stage.Stage;
 
 public class SideMenu extends VBox {
 
+    ViewInterface api = ViewInterface.getInstance();
+
+   Label currentCompartment = new Label("commercial class");
+
+    private void updateCompartmentName(String compartmentName) {
+        System.out.println(compartmentName);
+        this.currentCompartment.setText(compartmentName);
+        System.out.println(currentCompartment.getText());
+
+    }
+
+    EventHandler<ActionEvent> goForward = actionEvent ->
+
+    {
+        api.goDirection("forward");
+        updateCompartmentName(api.getCompartmentName());
+    };
+
+    EventHandler<ActionEvent> goBack = actionEvent -> {
+        api.goDirection("back");
+        updateCompartmentName(api.getCompartmentName());
+    };
+
+    EventHandler<ActionEvent> goLeft = actionEvent -> {
+        api.goDirection("left");
+        updateCompartmentName(api.getCompartmentName());
+    };
+
+    EventHandler<ActionEvent> goRight = actionEvent -> {
+        api.goDirection("right");
+        updateCompartmentName(api.getCompartmentName());
+    };
+
     Inventory inventory = new Inventory();
     MenuOptions menuOptions = new MenuOptions();
-    Directionals directionals = new Directionals();
+    Directionals directionals = new Directionals(goForward, goBack, goLeft, goRight);
     boolean shouldShowInventory = true;
 
 
     public SideMenu() {
 
-        Text currentCompartment = new Text("Commercial");
         Label timeRemaining = new Label("Time Remaining : 04 : 36");
 
         Button menuButton = new Button("=");
@@ -33,8 +67,8 @@ public class SideMenu extends VBox {
 
         VBox topSection = new VBox(currentCompartment, timeRemaining, menuButton);
 
-        currentCompartment.setX(50);
-        currentCompartment.setY(50);
+        //currentCompartment.setX(50);
+        //currentCompartment.setY(50);
         topSection.setAlignment(Pos.CENTER);
 
         this.getChildren().addAll(topSection, inventory, directionals);
