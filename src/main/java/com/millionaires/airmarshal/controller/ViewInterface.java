@@ -18,7 +18,6 @@ public class ViewInterface {
     // Singleton
 
     private static final ViewInterface instance = new ViewInterface();
-    private Scene scene;
 
     public static ViewInterface getInstance() {
         return instance;
@@ -27,6 +26,8 @@ public class ViewInterface {
     // Class methods below
     private Map<String, CompartmentData> compartmentData = loadCompartmentData();
     private GameView gameView;
+    private Scene scene;
+    private CompartmentData currentCompartment = getCompartmentData("commercial class");
 
     private ViewInterface() {
     }
@@ -67,7 +68,11 @@ public class ViewInterface {
     }
 
     public void startGame() {
-        scene.setRoot(new GameView(new CompartmentView(getCompartmentData("commercial class"))));
+        setCompartment();
+    }
+
+    private void setCompartment(){
+        scene.setRoot(new GameView(new CompartmentView(currentCompartment)));
     }
 
     public void loadGame() {
@@ -90,9 +95,10 @@ public class ViewInterface {
 
     }
 
-    public CompartmentData goDirection(CompartmentData currentCompartment, String direction) {
+    public void goDirection(String direction) {
         String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
-        return compartmentData.get(nextCompartmentName);
+        this.currentCompartment =  compartmentData.get(nextCompartmentName);
+        setCompartment();
     }
 
     public String talkTo(InteractableData character) {
@@ -131,5 +137,9 @@ public class ViewInterface {
 
     public String getPlayerName() {
         return Player.getInstance().getName();
+    }
+
+    public String[] getAvailableCompartmentDirections() {
+        return currentCompartment.getDirections().keySet().toArray(new String[0]);
     }
 }

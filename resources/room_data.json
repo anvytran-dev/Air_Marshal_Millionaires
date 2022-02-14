@@ -51,7 +51,7 @@
       "directions": {
         "forward": "first class",
         "back": "bathroom",
-        "down": "galley"
+        "left": "galley"
       }
     },
     "first class": {
@@ -169,8 +169,8 @@
         }
       ],
       "directions": {
-        "forward": "cargo",
-        "up": "commercial class"
+        "back": "cargo",
+        "right": "commercial class"
       }
     },
     "cargo": {
@@ -203,7 +203,7 @@
         }
       ],
       "directions": {
-        "back": "galley"
+        "forward": "galley"
       }
     }
   }
