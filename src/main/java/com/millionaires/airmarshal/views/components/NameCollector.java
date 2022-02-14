@@ -52,6 +52,5 @@ public class NameCollector extends VBox {
         }else{
             errorMessage.setText("Name is required");
         }
-
     };
 }

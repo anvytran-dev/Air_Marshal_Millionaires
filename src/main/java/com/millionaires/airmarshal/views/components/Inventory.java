@@ -20,7 +20,6 @@ public class Inventory extends VBox {
         button4.setText("Item 3");
 
         getChildren().addAll(button1,button2,button3,button4);
-
     }
 }
 

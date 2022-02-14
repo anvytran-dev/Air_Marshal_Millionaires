@@ -59,4 +59,14 @@ public class Player {
     public String getName(){
         return name;
     }
+
+    public boolean canAccessCockpit() {
+        for(InteractableData item : inventory){
+            if(item.getName().equals("poster")){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

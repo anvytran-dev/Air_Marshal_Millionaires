@@ -22,7 +22,6 @@ public class ItemsDisplay extends StackPane {
 
         HBox display = new HBox();
         display.setSpacing(50);
-//        display.setPadding(new Insets(0, 0, 0, 50));
         display.setAlignment(Pos.CENTER);
         for (InteractableData itemsData : items) {
             Interactable item = new Interactable(itemsData);

@@ -13,9 +13,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.time.Duration;
-
-
 public class SideMenu extends VBox {
 
     private ViewInterface api = ViewInterface.getInstance();
@@ -23,28 +20,7 @@ public class SideMenu extends VBox {
     private Inventory inventory = new Inventory();
     private MenuOptions menuOptions = new MenuOptions();
     private boolean shouldShowInventory = true;
-    Label timeRemaining = new Label();
-    private static boolean isTimelineRunning = false;
-    Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            String secs = ViewInterface.getInstance().subtractTime();
-            System.out.println(secs);
-
-            timeRemaining.setText(secs);
-
-
-        }}));
-
-    public void runTimeline() {
-
-            isTimelineRunning = true;
-            oneSecondCountdown.setCycleCount(Timeline.INDEFINITE);
-            oneSecondCountdown.play();
-
-    }
-
+    Label timeRemaining = new Label(api.getRemainingTime());
 
     public SideMenu() {
         System.out.println(this);
@@ -62,28 +38,20 @@ public class SideMenu extends VBox {
         setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
         setEffect(new DropShadow(50, Color.BLACK));
-
-        runTimeline();
     }
-
 
 
     EventHandler menuButtonFunction = event -> {
         getChildren().remove(1);
         if (shouldShowInventory) {
             getChildren().add(1, inventory);
-
         } else {
             getChildren().add(1, menuOptions);
-
         }
         shouldShowInventory = !shouldShowInventory;
-
     };
 
-
-    public void updateTimer(Duration duration) {
-        timeRemaining.setText(duration.toSeconds() + "");
-
+    public void updateTimer(String secs) {
+        timeRemaining.setText(secs);
     }
 }

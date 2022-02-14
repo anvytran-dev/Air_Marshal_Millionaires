@@ -6,12 +6,8 @@ import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.models.Player;
 import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameView;
-import com.millionaires.airmarshal.views.components.DialogBox;
-import com.millionaires.airmarshal.views.components.SideMenu;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -21,7 +17,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class ViewInterface {
@@ -38,13 +33,16 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
-
     Duration duration = Duration.ofMinutes(5L);
 
-
-
-
-
+    Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
+        @Override
+        public void handle(ActionEvent event) {
+            String secs = ViewInterface.getInstance().subtractTime();
+            System.out.println(secs);
+            gameView.updateTimer(secs);
+        }
+    }));
 
     private ViewInterface() {
     }
@@ -86,7 +84,8 @@ public class ViewInterface {
 
     public void startGame() {
         setCompartment();
-        //gameView.startTimer();
+        oneSecondCountdown.setCycleCount(Timeline.INDEFINITE);
+        oneSecondCountdown.play();
     }
 
     private void setCompartment() {
@@ -114,13 +113,15 @@ public class ViewInterface {
     }
 
     public void goDirection(String direction) {
+
         String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
+        if(nextCompartmentName.equals("cockpit") && !Player.getInstance().canAccessCockpit()){
+            showDialogBox("STEWARDESS: Only passengers with tour posters are allowed to enter");
+            return;
+        }
+
         this.currentCompartment = compartmentData.get(nextCompartmentName);
         setCompartment();
-    }
-
-    public String talkTo(InteractableData character) {
-        return "Hello. We have not implemented talking to characters yet.";
     }
 
     public void takeItem(InteractableData item) {
@@ -178,10 +179,12 @@ public class ViewInterface {
         gameView.setDialogVisible(false);
     }
 
-
     public String subtractTime() {
-
         duration = duration.minusSeconds(1);
+        return getRemainingTime();
+    }
+
+    public String getRemainingTime() {
         return duration.getSeconds() + "";
     }
 }

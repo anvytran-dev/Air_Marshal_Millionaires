@@ -68,6 +68,7 @@ public class MainMenuView extends VBox {
 
             StandardButton loadBtn = new StandardButton("Load", showNameCollector);
             loadBtn.setPrefWidth(200);
+            loadBtn.setDisable(true);
 
             StandardButton instBtn = new StandardButton("Instructions", showInstructions);
             instBtn.setPrefWidth(200);
@@ -96,8 +97,5 @@ public class MainMenuView extends VBox {
         dynamicArea.getChildren().add(new InstructionsDisplay(instructions, showMainMenuButtons));
     };
 
-
-
     EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
-
 }

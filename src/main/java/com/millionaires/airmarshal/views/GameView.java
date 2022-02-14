@@ -6,8 +6,6 @@ import com.millionaires.airmarshal.views.components.SideMenu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import java.time.Duration;
-
 public class GameView extends StackPane {
 
     DialogBox dialogBox;
@@ -18,7 +16,6 @@ public class GameView extends StackPane {
         dialogBox = new DialogBox("Default text");
         dialogBox.setVisible(false);
         BorderPane pane = new BorderPane(compartment);
-
 
         sm.setPrefWidth(300);
         pane.setRight(sm);
@@ -35,7 +32,7 @@ public class GameView extends StackPane {
         dialogBox.setText(s);
     }
 
-//    public void startTimer() {
-//        sm.runTimeline();
-//    }
+    public void updateTimer(String secs) {
+        sm.updateTimer(secs);
+    }
 }

@@ -19,28 +19,6 @@ public class CompartmentView extends AnchorPane {
     public CompartmentView(CompartmentData data) {
         super();
 
-
-//
-//
-//        HBox characters = new HBox();
-//        for (InteractableData iData : data.getCharacters()) {
-//            Interactable character = new Interactable(iData);
-//            character.setFitHeight(CHARACTER_HEIGHT);
-//            character.setPreserveRatio(true);
-//            characters.getChildren().add(character);
-//
-//        }
-//        HBox items = new HBox();
-//        items.setSpacing(100);
-//        items.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-//        items.setAlignment(Pos.CENTER);
-//        for (InteractableData itemsData : data.getItems()) {
-//            Interactable item = new Interactable(itemsData);
-//            item.setFitHeight(ITEM_HEIGHT);
-//            item.setPreserveRatio(true);
-//            items.getChildren().add(item);
-//        }
-
         CharacterDisplay characters =  new CharacterDisplay(data.getCharacters());
         getChildren().add(characters);
         setBottomAnchor(characters, 0.0);
@@ -48,7 +26,6 @@ public class CompartmentView extends AnchorPane {
         ItemsDisplay items = new ItemsDisplay(data.getItems());
         getChildren().add(items);
         setTopAnchor(items, 0.0);
-
 
         setBackground(getBackgroundImage(data.getBackgroundUrl()));
     }
