@@ -7,12 +7,21 @@ import com.millionaires.airmarshal.models.Player;
 import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameView;
 import com.millionaires.airmarshal.views.components.DialogBox;
+import com.millionaires.airmarshal.views.components.SideMenu;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class ViewInterface {
@@ -29,6 +38,13 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
+
+    Duration duration = Duration.ofMinutes(5L);
+
+
+
+
+
 
     private ViewInterface() {
     }
@@ -70,6 +86,7 @@ public class ViewInterface {
 
     public void startGame() {
         setCompartment();
+        //gameView.startTimer();
     }
 
     private void setCompartment() {
@@ -152,12 +169,19 @@ public class ViewInterface {
         this.gameView = gv;
     }
 
-    public void showDialogBox(String s){
+    public void showDialogBox(String s) {
         gameView.setDialogText(s);
         gameView.setDialogVisible(true);
     }
 
     public void dismissDialog() {
         gameView.setDialogVisible(false);
+    }
+
+
+    public String subtractTime() {
+
+        duration = duration.minusSeconds(1);
+        return duration.getSeconds() + "";
     }
 }

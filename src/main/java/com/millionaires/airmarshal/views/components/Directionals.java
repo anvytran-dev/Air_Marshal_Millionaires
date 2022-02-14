@@ -1,6 +1,7 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

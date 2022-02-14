@@ -1,9 +1,9 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
-import javafx.animation.Transition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
+import java.time.Duration;
 
 
 public class SideMenu extends VBox {
@@ -23,10 +23,31 @@ public class SideMenu extends VBox {
     private Inventory inventory = new Inventory();
     private MenuOptions menuOptions = new MenuOptions();
     private boolean shouldShowInventory = true;
+    Label timeRemaining = new Label();
+    private static boolean isTimelineRunning = false;
+    Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            String secs = ViewInterface.getInstance().subtractTime();
+            System.out.println(secs);
+
+            timeRemaining.setText(secs);
+
+
+        }}));
+
+    public void runTimeline() {
+
+            isTimelineRunning = true;
+            oneSecondCountdown.setCycleCount(Timeline.INDEFINITE);
+            oneSecondCountdown.play();
+
+    }
+
 
     public SideMenu() {
         System.out.println(this);
-        Label timeRemaining = new Label("04:36 remaining");
 
         Button menuButton = new Button("=");
         menuButton.setOnMouseClicked(menuButtonFunction);
@@ -41,6 +62,8 @@ public class SideMenu extends VBox {
         setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
         setEffect(new DropShadow(50, Color.BLACK));
+
+        runTimeline();
     }
 
 
@@ -59,4 +82,8 @@ public class SideMenu extends VBox {
     };
 
 
+    public void updateTimer(Duration duration) {
+        timeRemaining.setText(duration.toSeconds() + "");
+
+    }
 }
