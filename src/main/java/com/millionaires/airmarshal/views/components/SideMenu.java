@@ -18,83 +18,44 @@ import javafx.stage.Stage;
 
 public class SideMenu extends VBox {
 
-    ViewInterface api = ViewInterface.getInstance();
-
-   Label currentCompartment = new Label("commercial class");
-
-    private void updateCompartmentName(String compartmentName) {
-        System.out.println(compartmentName);
-        this.currentCompartment.setText(compartmentName);
-        System.out.println(currentCompartment.getText());
-
-    }
-
-    EventHandler<ActionEvent> goForward = actionEvent ->
-
-    {
-        api.goDirection("forward");
-        updateCompartmentName(api.getCompartmentName());
-    };
-
-    EventHandler<ActionEvent> goBack = actionEvent -> {
-        api.goDirection("back");
-        updateCompartmentName(api.getCompartmentName());
-    };
-
-    EventHandler<ActionEvent> goLeft = actionEvent -> {
-        api.goDirection("left");
-        updateCompartmentName(api.getCompartmentName());
-    };
-
-    EventHandler<ActionEvent> goRight = actionEvent -> {
-        api.goDirection("right");
-        updateCompartmentName(api.getCompartmentName());
-    };
-
-    Inventory inventory = new Inventory();
-    MenuOptions menuOptions = new MenuOptions();
-    Directionals directionals = new Directionals(goForward, goBack, goLeft, goRight);
-    boolean shouldShowInventory = true;
-
+    private ViewInterface api = ViewInterface.getInstance();
+    private Label currentCompartment;
+    private Inventory inventory = new Inventory();
+    private MenuOptions menuOptions = new MenuOptions();
+    private boolean shouldShowInventory = true;
 
     public SideMenu() {
-
-        Label timeRemaining = new Label("Time Remaining : 04 : 36");
+        System.out.println(this);
+        Label timeRemaining = new Label("04:36 remaining");
 
         Button menuButton = new Button("=");
         menuButton.setOnMouseClicked(menuButtonFunction);
 
-
+        currentCompartment = new Label(api.getCompartmentName());
         VBox topSection = new VBox(currentCompartment, timeRemaining, menuButton);
 
-        //currentCompartment.setX(50);
-        //currentCompartment.setY(50);
         topSection.setAlignment(Pos.CENTER);
-
+        Directionals directionals = new Directionals();
         this.getChildren().addAll(topSection, inventory, directionals);
-
 
         setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
         setEffect(new DropShadow(50, Color.BLACK));
-
     }
 
 
-    EventHandler menuButtonFunction = new EventHandler() {
-        @Override
-        public void handle(Event event) {
-            getChildren().remove(1);
-            if (shouldShowInventory) {
-                getChildren().add(1, inventory);
 
-            } else {
-                getChildren().add(1, menuOptions);
+    EventHandler menuButtonFunction = event -> {
+        getChildren().remove(1);
+        if (shouldShowInventory) {
+            getChildren().add(1, inventory);
 
-            }
-            shouldShowInventory = !shouldShowInventory;
+        } else {
+            getChildren().add(1, menuOptions);
 
         }
+        shouldShowInventory = !shouldShowInventory;
+
     };
 
 

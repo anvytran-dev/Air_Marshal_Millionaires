@@ -14,11 +14,11 @@ public class Directionals extends HBox {
 
     ViewInterface api = ViewInterface.getInstance();
 
-    public Directionals(EventHandler<ActionEvent> goForward, EventHandler<ActionEvent> goBack, EventHandler<ActionEvent> goLeft, EventHandler<ActionEvent> goRight){
-        Button forwardButton = getButton("↑", goForward);
-        Button backButton = getButton("↓", goBack);
-        Button leftButton = getButton("←", goLeft);
-        Button rightButton = getButton("→", goRight);
+    public Directionals(){
+        Button forwardButton = getButton("↑", goDir("forward"));
+        Button backButton = getButton("↓", goDir("back"));
+        Button leftButton = getButton("←", goDir("left"));
+        Button rightButton = getButton("→", goDir("right"));
 
         for(String directionAvailable : api.getAvailableCompartmentDirections()){
             switch(directionAvailable){
@@ -53,6 +53,11 @@ public class Directionals extends HBox {
         dirButton.setDisable(true);
         return dirButton;
     }
+
+    private EventHandler<ActionEvent> goDir(String dir) {
+        return event -> api.goDirection(dir);
+    }
+
 
 
 }
