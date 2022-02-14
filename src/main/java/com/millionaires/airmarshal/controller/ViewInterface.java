@@ -6,6 +6,7 @@ import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.models.Player;
 import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameView;
+import com.millionaires.airmarshal.views.components.DialogBox;
 import javafx.scene.Scene;
 import org.json.JSONObject;
 
@@ -71,7 +72,7 @@ public class ViewInterface {
         setCompartment();
     }
 
-    private void setCompartment(){
+    private void setCompartment() {
         scene.setRoot(new GameView(new CompartmentView(currentCompartment)));
     }
 
@@ -97,7 +98,7 @@ public class ViewInterface {
 
     public void goDirection(String direction) {
         String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
-        this.currentCompartment =  compartmentData.get(nextCompartmentName);
+        this.currentCompartment = compartmentData.get(nextCompartmentName);
         setCompartment();
     }
 
@@ -145,5 +146,18 @@ public class ViewInterface {
 
     public String getCompartmentName() {
         return currentCompartment.getName();
+    }
+
+    public void setGameView(GameView gv) {
+        this.gameView = gv;
+    }
+
+    public void showDialogBox(String s){
+        gameView.setDialogText(s);
+        gameView.setDialogVisible(true);
+    }
+
+    public void dismissDialog() {
+        gameView.setDialogVisible(false);
     }
 }

@@ -1,8 +1,10 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.models.InteractableData;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,9 +30,6 @@ public class ItemsDisplay extends StackPane {
             item.setPreserveRatio(true);
             display.getChildren().add(item);
         }
-
-
         getChildren().addAll(box, display);
-
     }
 }

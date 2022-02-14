@@ -7,13 +7,15 @@
           "name": "teacher",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/teacher.png"
+          "image": "resources/images/CommercialClassView/teacher.png",
+          "dialog" : "teacher dialog"
         },
         {
           "name": "doctor",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/doc.png"
+          "image": "resources/images/CommercialClassView/doc.png",
+          "dialog" : "teacher dialog"
         }
       ],
       "items": [
@@ -21,31 +23,36 @@
           "name": "yellow handkerchief",
           "x": 0,
           "y": 0,
-          "image": "resources/images/CommercialClassView/handkerchief.png"
+          "image": "resources/images/CommercialClassView/handkerchief.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "overhead luggage",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/luggage.png"
+          "image": "resources/images/CommercialClassView/luggage.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "stethoscope",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/stethoscope.png"
+          "image": "resources/images/CommercialClassView/stethoscope.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "carton of cigarettes",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/cigarette.png"
+          "image": "resources/images/CommercialClassView/cigarette.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name":"boarding pass",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CommercialClassView/pass.png"
+          "image": "resources/images/CommercialClassView/pass.png",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {
@@ -61,13 +68,15 @@
           "name": "stewardess",
           "x": 300,
           "y": 300,
-          "image": "resources/images/FirstClassView/flightattendant.png"
+          "image": "resources/images/FirstClassView/flightattendant.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "lawyer",
           "x": 500,
           "y": 500,
-          "image": "resources/images/FirstClassView/lawyer.png"
+          "image": "resources/images/FirstClassView/lawyer.png",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "items": [
@@ -75,13 +84,15 @@
           "name": "check book",
           "x": 300,
           "y": 300,
-          "image": "resources/images/FirstClassView/checkbook.png"
+          "image": "resources/images/FirstClassView/checkbook.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "ski pole",
           "x": 500,
           "y": 500,
-          "image": "resources/images/FirstClassView/skipole.png"
+          "image": "resources/images/FirstClassView/skipole.png",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {
@@ -96,13 +107,15 @@
           "name": "pilot",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CockpitView/pilot.png"
+          "image": "resources/images/CockpitView/pilot.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "first officer",
           "x": 500,
           "y": 500,
-          "image": "resources/images/CockpitView/pilot.png"
+          "image": "resources/images/CockpitView/pilot.png",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "items": [
@@ -110,13 +123,15 @@
           "name": "aircraft guide",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CockpitView/guide.png"
+          "image": "resources/images/CockpitView/guide.png",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "manual",
           "x": 500,
           "y": 500,
-          "image": "resources/images/CockpitView/manual.png"
+          "image": "resources/images/CockpitView/manual.png",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {
@@ -131,7 +146,8 @@
           "name": "poster",
           "x": 300,
           "y": 300,
-          "image": "resources/images/BathroomView/poster.jpeg"
+          "image": "resources/images/BathroomView/poster.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {
@@ -145,7 +161,8 @@
           "name": "cook",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/cook.jpeg"
+          "image": "resources/images/GalleyView/cook.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "items": [
@@ -153,19 +170,22 @@
           "name": "drinks",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/drinks.jpeg"
+          "image": "resources/images/GalleyView/drinks.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "food",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/food.jpeg"
+          "image": "resources/images/GalleyView/food.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "key",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/key.jpeg"
+          "image": "resources/images/GalleyView/key.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {
@@ -181,25 +201,29 @@
           "name": "bag",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag.jpeg"
+          "image": "resources/images/CargoView/bag.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "bag2",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag2.jpeg"
+          "image": "resources/images/CargoView/bag2.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "bag3",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag3.jpeg"
+          "image": "resources/images/CargoView/bag3.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "poison",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/poison.jpeg"
+          "image": "resources/images/CargoView/poison.jpeg",
+          "dialog" : "You picked up the yellow handkerchief"
         }
       ],
       "directions": {

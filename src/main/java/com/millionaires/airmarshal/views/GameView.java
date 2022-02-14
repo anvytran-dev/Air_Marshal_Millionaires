@@ -1,9 +1,8 @@
 package com.millionaires.airmarshal.views;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.DialogBox;
 import com.millionaires.airmarshal.views.components.SideMenu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -13,7 +12,7 @@ public class GameView extends StackPane {
 
     public GameView(CompartmentView compartment) {
         super();
-        dialogBox = new DialogBox("Default text", hideDialogBox);
+        dialogBox = new DialogBox("Default text");
         dialogBox.setVisible(false);
         BorderPane pane = new BorderPane(compartment);
 
@@ -22,17 +21,14 @@ public class GameView extends StackPane {
         pane.setRight(sm);
 
         getChildren().addAll(pane, dialogBox);
+        ViewInterface.getInstance().setGameView(this);
     }
 
-    private EventHandler<ActionEvent> showDialogBox = actionEvent -> {
-        dialogBox.setVisible(true);
+    public void setDialogVisible(boolean b) {
+        dialogBox.setVisible(b);
     };
 
-    private EventHandler<ActionEvent> hideDialogBox = actionEvent -> {
-        dialogBox.setVisible(false);
-    };
-
-    private EventHandler<ActionEvent> setDialog = actionEvent -> {
-        dialogBox.setText("Hello world!");
-    };
+    public void setDialogText(String s){
+        dialogBox.setText(s);
+    }
 }

@@ -8,16 +8,14 @@ public class InteractableData {
     private String imagePath;
     private double x;
     private double y;
+    private String dialog;
 
-    public InteractableData(String name, String imagePath, double x, double y) {
+    public InteractableData(String name, String imagePath, double x, double y, String dialog) {
         this.name = name;
         this.imagePath = imagePath;
         this.x = x;
         this.y = y;
-    }
-
-    public InteractableData() {
-
+        this.dialog = dialog;
     }
 
     public static InteractableData fromJson(JSONObject interactableData) {
@@ -25,7 +23,8 @@ public class InteractableData {
                 interactableData.getString("name"),
                 interactableData.getString("image"),
                 interactableData.getDouble("x"),
-                interactableData.getDouble("y")
+                interactableData.getDouble("y"),
+                interactableData.getString("dialog")
         );
     }
 
@@ -63,4 +62,7 @@ public class InteractableData {
     }
 
 
+    public String getDialog() {
+        return this.dialog;
+    }
 }

@@ -1,5 +1,6 @@
 package com.millionaires.airmarshal.views.components;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,7 +15,7 @@ import javafx.scene.text.Text;
 public class DialogBox extends StackPane {
     private final Text dialogText;
 
-    public DialogBox(String text, EventHandler<ActionEvent> onDismiss) {
+    public DialogBox(String text) {
         super();
 
         // Define the desired width and height of this object
@@ -34,7 +35,7 @@ public class DialogBox extends StackPane {
         dialogText.setFont(Font.font("Verdana", 25));
 
         // The dismiss button with default function in case it was null
-        StandardButton dismissButton = new StandardButton("Ok", onDismiss == null ? defaultFunc : onDismiss);
+        StandardButton dismissButton = new StandardButton("Ok", onDismiss);
         dismissButton.setPrefWidth(80);
 
         // Column contains dialog, a text spacer for aesthetics, and the dismiss button
@@ -49,6 +50,8 @@ public class DialogBox extends StackPane {
         setLayoutY(500);
 
     }
+
+    EventHandler<ActionEvent> onDismiss = e -> ViewInterface.getInstance().dismissDialog();
 
     // A default function in case no dismiss function was provided
     EventHandler<ActionEvent> defaultFunc = ae -> System.out.println("ERROR: Dismiss function was null");
