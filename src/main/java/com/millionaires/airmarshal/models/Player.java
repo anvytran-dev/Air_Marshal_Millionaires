@@ -1,5 +1,7 @@
 package com.millionaires.airmarshal.models;
 
+import com.millionaires.airmarshal.views.components.Interactable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +19,7 @@ public class Player {
     /**
      * @return the singleton Player instance
      */
-    public Player getInstance(){
+    public static Player getInstance(){
         return instance;
     }
 
@@ -58,5 +60,36 @@ public class Player {
      */
     public String getName(){
         return name;
+    }
+// create function to check for certain item:
+
+    public boolean checkItem(String relevantItem) {
+        for(InteractableData item : inventory){
+            if(item.getName().equals(relevantItem)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canAccessCockpit() {
+        return checkItem("poster");
+    }
+
+    public boolean canAccessGalley() {
+        return checkItem("aircraft guide");
+    }
+
+    public boolean canAccessCargo() {
+        return checkItem("key");
+    }
+
+    public boolean hasWinningItems() {
+        for(InteractableData item : inventory){
+            if(item.getName().equals("boarding pass") && item.getName().equals("poison")){
+                return true;
+            }
+        }
+        return false;
     }
 }

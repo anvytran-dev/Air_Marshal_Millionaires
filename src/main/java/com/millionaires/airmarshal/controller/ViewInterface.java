@@ -3,15 +3,22 @@ package com.millionaires.airmarshal.controller;
 
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
-import org.json.JSONArray;
+import com.millionaires.airmarshal.models.Player;
+import com.millionaires.airmarshal.views.CompartmentView;
+import com.millionaires.airmarshal.views.GameOverView;
+import com.millionaires.airmarshal.views.GameView;
+import com.millionaires.airmarshal.views.MainMenuView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import org.json.JSONObject;
 
-import javax.swing.text.View;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.CharBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
 import java.util.*;
 
 public class ViewInterface {
@@ -23,11 +30,32 @@ public class ViewInterface {
         return instance;
     }
 
-
     // Class methods below
     private Map<String, CompartmentData> compartmentData = loadCompartmentData();
+    private GameView gameView;
+    private Scene scene;
+    private CompartmentData currentCompartment = getCompartmentData("commercial class");
+    Duration duration = Duration.ofMinutes(5L);
 
-    private ViewInterface() {}
+    Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
+        @Override
+        public void handle(ActionEvent event) {
+            String secs = ViewInterface.getInstance().subtractTime();
+            System.out.println(secs);
+            gameView.updateTimer(secs);
+
+            if(secs.equals("0")) {
+                scene.setRoot(new GameOverView(false));
+                oneSecondCountdown.stop();
+            }
+
+
+
+        }
+    }));
+
+    private ViewInterface() {
+    }
 
     private Map<String, CompartmentData> loadCompartmentData() {
         //[{}, {}]
@@ -52,39 +80,7 @@ public class ViewInterface {
 
         for (String key : roomData.keySet()) {
             JSONObject room = roomData.getJSONObject(key);
-
-            //convert list of characters to List<InteractableData>
-            List<InteractableData> chars = new ArrayList<>();
-            JSONArray listOfCharacters = room.getJSONArray("characters");
-
-            for (Object character : listOfCharacters) {
-                JSONObject charJSON = (JSONObject) character;
-                InteractableData person = new InteractableData(charJSON.getString("name"), charJSON.getString("image"), charJSON.getDouble("x"), charJSON.getDouble("y"));
-
-                chars.add(person);
-            }
-
-            //convert items
-            List<InteractableData> items = new ArrayList<>();
-            JSONArray listOfItems = room.getJSONArray("items");
-
-            for (Object item : listOfItems) {
-                JSONObject itemJSON = (JSONObject) item;
-                InteractableData itemInRoom = new InteractableData(itemJSON.getString("name"), itemJSON.getString("image"), itemJSON.getDouble("x"), itemJSON.getDouble("y"));
-                System.out.println(itemJSON.get("image"));
-                items.add(itemInRoom);
-            }
-
-
-            Map<String, String> directions = new HashMap<>();
-            JSONObject possibleDirections = room.getJSONObject("directions");
-
-            for (String keyDirection : possibleDirections.keySet()) {
-                directions.put(keyDirection, possibleDirections.getString(keyDirection));
-            }
-
-            CompartmentData cd = new CompartmentData(room.getString("backgroundUrl"), chars, items, directions);
-
+            CompartmentData cd = CompartmentData.fromJson(room, key);
             tempMap.put(key, cd);
         }
 
@@ -97,8 +93,13 @@ public class ViewInterface {
     }
 
     public void startGame() {
+        setCompartment();
+        oneSecondCountdown.setCycleCount(Timeline.INDEFINITE);
+        oneSecondCountdown.play();
+    }
 
-
+    private void setCompartment() {
+        scene.setRoot(new GameView(new CompartmentView(currentCompartment)));
     }
 
     public void loadGame() {
@@ -110,23 +111,122 @@ public class ViewInterface {
     }
 
     public String getInstructions() {
-        return "These are instructions";
+        try {
+            List<String> insts = Files.readAllLines(Path.of("resources/data/game_instructions.txt"));
+            return String.join("\n", insts);
+
+        } catch (Exception e) {
+            System.out.println("Caught error while trying to read instructions");
+            return "Unable to read instructions";
+        }
+
     }
 
-    public CompartmentData goDirection(CompartmentData currentCompartment, String direction) {
+    public void goDirection(String direction) {
+
         String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
-        return compartmentData.get(nextCompartmentName);
-    }
+        if(nextCompartmentName.equals("cockpit") && !Player.getInstance().canAccessCockpit()){
+            showDialogBox("STEWARDESS: Only passengers with tour posters are allowed to enter");
+            return;
+        }
 
-    public String talkTo(InteractableData character) {
-        return "Hello. We have not implemented talking to characters yet.";
+        if(nextCompartmentName.equals("galley") && !Player.getInstance().canAccessGalley()){
+            showDialogBox("I shouldn't venture too far without knowing my way around");
+            return;
+        }
+
+        if(nextCompartmentName.equals("cargo") && !Player.getInstance().canAccessCargo()){
+            showDialogBox("The cargo room is locked. I wonder who would have a key...");
+            return;
+        }
+
+        this.currentCompartment = compartmentData.get(nextCompartmentName);
+        setCompartment();
     }
 
     public void takeItem(InteractableData item) {
+        Player.getInstance().getInventory().remove(item);
 
     }
 
     public void toggleMusic() {
 
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    private CompartmentData getCompartmentData(String compartmentName) {
+        return compartmentData.get(compartmentName);
+    }
+
+    /**
+     * Sets the player's name
+     *
+     * @param name - the name to set on the player
+     * @return true if setting name was successful, false if it was unsuccessful
+     */
+    public boolean setPlayerName(String name) {
+        if (name == null || name.isEmpty())
+            return false;
+
+        Player.getInstance().setName(name);
+        return true;
+    }
+
+    public String getPlayerName() {
+        return Player.getInstance().getName();
+    }
+
+    public String[] getAvailableCompartmentDirections() {
+        return currentCompartment.getDirections().keySet().toArray(new String[0]);
+    }
+
+    public String getCompartmentName() {
+        return currentCompartment.getName();
+    }
+
+    public void setGameView(GameView gv) {
+        this.gameView = gv;
+    }
+
+    public void showDialogBox(String s) {
+        gameView.setDialogText(s);
+        gameView.setDialogVisible(true);
+    }
+
+    public void dismissDialog() {
+        gameView.setDialogVisible(false);
+    }
+
+
+    public String subtractTime() {
+        while(duration.isNegative()) {
+            return "";
+        }
+        duration = duration.minusSeconds(1);
+        return getRemainingTime();
+    }
+
+    public String getRemainingTime() {
+        return duration.getSeconds() + "";
+    }
+    public void addItem(InteractableData item){
+        currentCompartment.removeItem(item);
+        Player.getInstance().addItemToInventory(item);
+        setCompartment();
+    }
+    public List<InteractableData> getPlayerInventory(){
+        return Player.getInstance().getInventory();
+    }
+
+    public void winGame() {
+
+        scene.setRoot(new GameOverView(true));
+    }
+
+    public void getMainMenu() {
+        scene.setRoot(new MainMenuView());
     }
 }
