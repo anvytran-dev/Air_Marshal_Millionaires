@@ -1,6 +1,7 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
+import com.millionaires.airmarshal.models.InteractableData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -54,4 +55,8 @@ public class SideMenu extends VBox {
     public void updateTimer(String secs) {
         timeRemaining.setText(secs);
     }
+    public void AddItem(InteractableData item){
+        inventory.AddItem(item);
+    }
+
 }

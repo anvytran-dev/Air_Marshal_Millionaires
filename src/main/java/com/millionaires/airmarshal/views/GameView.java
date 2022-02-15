@@ -1,6 +1,7 @@
 package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
+import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.views.components.DialogBox;
 import com.millionaires.airmarshal.views.components.SideMenu;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +24,9 @@ public class GameView extends StackPane {
         getChildren().addAll(pane, dialogBox);
         ViewInterface.getInstance().setGameView(this);
     }
+
+
+    public void AddItem (InteractableData item) { sm.AddItem(item); }
 
     public void setDialogVisible(boolean b) {
         dialogBox.setVisible(b);

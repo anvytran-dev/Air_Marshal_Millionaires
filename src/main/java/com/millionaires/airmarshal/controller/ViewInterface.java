@@ -125,6 +125,7 @@ public class ViewInterface {
     }
 
     public void takeItem(InteractableData item) {
+        Player.getInstance().getInventory().remove(item);
 
     }
 
@@ -186,5 +187,8 @@ public class ViewInterface {
 
     public String getRemainingTime() {
         return duration.getSeconds() + "";
+    }
+    public void AddItem (InteractableData item){
+        gameView.AddItem(item);
     }
 }
