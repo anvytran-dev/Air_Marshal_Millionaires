@@ -1,5 +1,6 @@
 package com.millionaires.airmarshal.models;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import org.json.JSONObject;
 
 public class InteractableData {
@@ -9,6 +10,7 @@ public class InteractableData {
     private double x;
     private double y;
     private String dialog;
+    boolean isItem = false;
 
     public InteractableData(String name, String imagePath, double x, double y, String dialog) {
         this.name = name;
@@ -25,6 +27,7 @@ public class InteractableData {
                 interactableData.getDouble("x"),
                 interactableData.getDouble("y"),
                 interactableData.getString("dialog")
+
         );
     }
 
@@ -64,5 +67,13 @@ public class InteractableData {
 
     public String getDialog() {
         return this.dialog;
+    }
+
+    public void setItem(boolean item) {
+        isItem = item;
+    }
+
+    public boolean isItem() {
+        return isItem;
     }
 }

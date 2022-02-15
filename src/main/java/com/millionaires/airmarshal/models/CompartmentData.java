@@ -1,5 +1,6 @@
 package com.millionaires.airmarshal.models;
 
+        import com.millionaires.airmarshal.controller.ViewInterface;
         import org.json.JSONArray;
         import org.json.JSONObject;
 
@@ -32,7 +33,9 @@ public class CompartmentData {
         JSONArray listOfItems = room.getJSONArray("items");
 
         for (Object item : listOfItems) {
-            items.add(InteractableData.fromJson((JSONObject) item));
+            InteractableData dataItem = InteractableData.fromJson((JSONObject) item);
+            dataItem.setItem(true);
+            items.add(dataItem);
         }
 
         Map<String, String> directions = new HashMap<>();
@@ -92,6 +95,10 @@ public class CompartmentData {
 
     public String getName() {
         return name;
+    }
+
+    public void removeItem(InteractableData itemToRemove) {
+        this.items.removeIf(item -> itemToRemove.getName().equals(item.getName()));
     }
 }
 

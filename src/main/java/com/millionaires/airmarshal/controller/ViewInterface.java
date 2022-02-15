@@ -190,6 +190,7 @@ public class ViewInterface {
         gameView.setDialogVisible(false);
     }
 
+
     public String subtractTime() {
         duration = duration.minusSeconds(1);
         return getRemainingTime();
@@ -198,7 +199,13 @@ public class ViewInterface {
     public String getRemainingTime() {
         return duration.getSeconds() + "";
     }
-    public void AddItem (InteractableData item){
-        gameView.AddItem(item);
+    public void addItem(InteractableData item){
+        currentCompartment.removeItem(item);
+        Player.getInstance().addItemToInventory(item);
+        setCompartment();
     }
+    public List<InteractableData> getPlayerInventory(){
+        return Player.getInstance().getInventory();
+    }
+
 }

@@ -26,7 +26,6 @@ public class GameView extends StackPane {
     }
 
 
-    public void AddItem (InteractableData item) { sm.AddItem(item); }
 
     public void setDialogVisible(boolean b) {
         dialogBox.setVisible(b);

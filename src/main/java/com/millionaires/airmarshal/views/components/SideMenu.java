@@ -34,11 +34,14 @@ public class SideMenu extends VBox {
 
         topSection.setAlignment(Pos.CENTER);
         Directionals directionals = new Directionals();
-        this.getChildren().addAll(topSection, inventory, directionals);
+        this.getChildren().addAll(topSection, inventory);
 
         setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
         setEffect(new DropShadow(50, Color.BLACK));
+
+        this.getChildren().add(directionals);
+        directionals.setAlignment(Pos.BOTTOM_CENTER);
     }
 
 
@@ -55,8 +58,6 @@ public class SideMenu extends VBox {
     public void updateTimer(String secs) {
         timeRemaining.setText(secs);
     }
-    public void AddItem(InteractableData item){
-        inventory.AddItem(item);
-    }
+
 
 }
