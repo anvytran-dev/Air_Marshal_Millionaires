@@ -1,74 +1,63 @@
 package com.millionaires.airmarshal.views.components;
 
-import javafx.animation.Transition;
-import javafx.event.Event;
+import com.millionaires.airmarshal.controller.ViewInterface;
+import com.millionaires.airmarshal.models.InteractableData;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
 
 public class SideMenu extends VBox {
 
-    Inventory inventory = new Inventory();
-    MenuOptions menuOptions = new MenuOptions();
-    Directionals directionals= new Directionals();
-    boolean shouldShowInventory = true;
+    private ViewInterface api = ViewInterface.getInstance();
+    private Label currentCompartment;
+    private Inventory inventory = new Inventory();
+    private MenuOptions menuOptions = new MenuOptions();
+    private boolean shouldShowInventory = true;
+    Label timeRemaining = new Label(api.getRemainingTime());
 
-
-
-
-    public SideMenu(){
-
-        Text currentCompartment = new Text("Commercial");
-        Label timeRemaining = new Label("Time Remaining : 04 : 36");
+    public SideMenu() {
+        System.out.println(this);
 
         Button menuButton = new Button("=");
         menuButton.setOnMouseClicked(menuButtonFunction);
 
-
+        currentCompartment = new Label(api.getCompartmentName());
         VBox topSection = new VBox(currentCompartment, timeRemaining, menuButton);
 
-        currentCompartment.setX(50);
-        currentCompartment.setY(50);
         topSection.setAlignment(Pos.CENTER);
+        Directionals directionals = new Directionals();
+        this.getChildren().addAll(topSection, inventory);
 
-        this.getChildren().addAll(topSection,inventory, directionals);
-
-
-
-
-        setBackground(new Background(new BackgroundFill(Color.GREY, new CornerRadii(5),Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
         setStyle("-fx-font-family: 'sans-serif'");
+        setEffect(new DropShadow(50, Color.BLACK));
 
-
+        this.getChildren().add(directionals);
+        directionals.setAlignment(Pos.BOTTOM_CENTER);
     }
 
 
-   EventHandler menuButtonFunction = new EventHandler() {
-       @Override
-       public void handle(Event event) {
-           getChildren().remove(1);
-           if (shouldShowInventory){
-               getChildren().add(1,inventory);
+    EventHandler menuButtonFunction = event -> {
+        getChildren().remove(1);
+        if (shouldShowInventory) {
+            getChildren().add(1, inventory);
+        } else {
+            getChildren().add(1, menuOptions);
+        }
+        shouldShowInventory = !shouldShowInventory;
+    };
 
-           }else{
-               getChildren().add(1,menuOptions);
-
-           }
-           shouldShowInventory = !shouldShowInventory;
-
-       }
-   };
-
-
-
-
+    public void updateTimer(String secs) {
+        timeRemaining.setText(secs);
+    }
 
 
 }

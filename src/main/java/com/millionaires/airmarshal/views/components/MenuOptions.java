@@ -17,12 +17,9 @@ public class MenuOptions extends VBox {
         Button button3 = new Button();
         button3.setText("Load");
 
-        Button button4 = new Button();
-        button4.setText("Help");
-
         setSpacing(10);
         setAlignment(Pos.CENTER);
-        getChildren().addAll(button1,button2,button3,button4);
+        getChildren().addAll(button1,button2,button3);
 
     }
 }
