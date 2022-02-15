@@ -69,4 +69,21 @@ public class Player {
         return false;
     }
 
+    public boolean canAccessGalley() {
+        for(InteractableData item : inventory){
+            if(item.getName().equals("aircraft guide")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canAccessCargo() {
+        for(InteractableData item : inventory){
+            if(item.getName().equals("key")){
+                return true;
+            }
+        }
+        return false;
+    }
 }

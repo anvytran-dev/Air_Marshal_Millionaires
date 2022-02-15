@@ -120,6 +120,16 @@ public class ViewInterface {
             return;
         }
 
+        if(nextCompartmentName.equals("galley") && !Player.getInstance().canAccessGalley()){
+            showDialogBox("I shouldn't venture too far without knowing my way around");
+            return;
+        }
+
+        if(nextCompartmentName.equals("cargo") && !Player.getInstance().canAccessCargo()){
+            showDialogBox("The cargo room is locked. I wonder who would have a key...");
+            return;
+        }
+
         this.currentCompartment = compartmentData.get(nextCompartmentName);
         setCompartment();
     }
