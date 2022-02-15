@@ -1,7 +1,7 @@
 {
   "rooms": {
     "commercial class": {
-      "backgroundUrl": "resources/images/CommercialClassView/comclass.jpeg",
+      "backgroundUrl": "resources/images/CommercialClassView/comclass.png",
       "characters": [
         {
           "name": "teacher",
@@ -62,7 +62,7 @@
       }
     },
     "first class": {
-      "backgroundUrl": "resources/images/FirstClassView/bg.jpg",
+      "backgroundUrl": "resources/images/FirstClassView/bg.png",
       "characters": [
         {
           "name": "stewardess",
@@ -139,14 +139,14 @@
       }
     },
     "bathroom": {
-      "backgroundUrl": "resources/images/BathroomView/bathroom.jpeg",
+      "backgroundUrl": "resources/images/BathroomView/bathroom.png",
       "characters": [],
       "items": [
         {
           "name": "poster",
           "x": 300,
           "y": 300,
-          "image": "resources/images/BathroomView/poster.jpeg",
+          "image": "resources/images/BathroomView/poster.png",
           "dialog" : "You picked up the yellow handkerchief"
         }
       ],
@@ -155,13 +155,13 @@
       }
     },
     "galley": {
-      "backgroundUrl": "resources/images/GalleyView/galley.jpeg",
+      "backgroundUrl": "resources/images/GalleyView/galley.png",
       "characters": [
         {
           "name": "cook",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/cook.jpeg",
+          "image": "resources/images/GalleyView/cook.png",
           "dialog" : "You picked up the yellow handkerchief"
         }
       ],
@@ -170,21 +170,21 @@
           "name": "drinks",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/drinks.jpeg",
+          "image": "resources/images/GalleyView/drinks.png",
           "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "food",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/food.jpeg",
+          "image": "resources/images/GalleyView/food.png",
           "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "key",
           "x": 300,
           "y": 300,
-          "image": "resources/images/GalleyView/key.jpeg",
+          "image": "resources/images/GalleyView/key.png",
           "dialog" : "You picked up the yellow handkerchief"
         }
       ],
@@ -194,35 +194,35 @@
       }
     },
     "cargo": {
-      "backgroundUrl": "resources/images/CargoView/cargo.jpeg",
+      "backgroundUrl": "resources/images/CargoView/cargo.png",
       "characters": [],
       "items": [
         {
           "name": "bag",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag.jpeg",
+          "image": "resources/images/CargoView/bag.png",
           "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "bag2",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag2.jpeg",
+          "image": "resources/images/CargoView/bag2.png",
           "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "bag3",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/bag3.jpeg",
+          "image": "resources/images/CargoView/bag3.png",
           "dialog" : "You picked up the yellow handkerchief"
         },
         {
           "name": "poison",
           "x": 300,
           "y": 300,
-          "image": "resources/images/CargoView/poison.jpeg",
+          "image": "resources/images/CargoView/poison.png",
           "dialog" : "You picked up the yellow handkerchief"
         }
       ],
