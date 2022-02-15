@@ -2,6 +2,7 @@ package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.InteractableData;
+import com.millionaires.airmarshal.models.Player;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -24,10 +25,15 @@ public class Interactable extends ImageView {
     EventHandler<MouseEvent> onClick(InteractableData data) {
 
         return mouseEvent -> {
+
             if(data.isItem()) {
                 ViewInterface.getInstance().addItem(data);
             }
             ViewInterface.getInstance().showDialogBox(data.getDialog());
+
+            if(data.getName().equals("stewardess") && Player.getInstance().hasWinningItems()) {
+                ViewInterface.getInstance().winGame();
+            }
 
         };
     }

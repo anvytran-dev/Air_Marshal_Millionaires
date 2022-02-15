@@ -5,7 +5,9 @@ import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.models.Player;
 import com.millionaires.airmarshal.views.CompartmentView;
+import com.millionaires.airmarshal.views.GameOverView;
 import com.millionaires.airmarshal.views.GameView;
+import com.millionaires.airmarshal.views.MainMenuView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -41,6 +43,14 @@ public class ViewInterface {
             String secs = ViewInterface.getInstance().subtractTime();
             System.out.println(secs);
             gameView.updateTimer(secs);
+
+            if(secs.equals("0")) {
+                scene.setRoot(new GameOverView(false));
+                oneSecondCountdown.stop();
+            }
+
+
+
         }
     }));
 
@@ -192,6 +202,9 @@ public class ViewInterface {
 
 
     public String subtractTime() {
+        while(duration.isNegative()) {
+            return "";
+        }
         duration = duration.minusSeconds(1);
         return getRemainingTime();
     }
@@ -208,4 +221,12 @@ public class ViewInterface {
         return Player.getInstance().getInventory();
     }
 
+    public void winGame() {
+
+        scene.setRoot(new GameOverView(true));
+    }
+
+    public void getMainMenu() {
+        scene.setRoot(new MainMenuView());
+    }
 }
