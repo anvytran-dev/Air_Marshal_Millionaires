@@ -249,4 +249,19 @@ public class ViewInterface {
 
         return new SaveData(viewInterfaceData, playerData, compartmentData);
     }
+
+    private static final String os = System.getProperty("os.name").toLowerCase();
+
+    public void restartGame() {
+        try {
+            if(os.contains("windows")) {
+                Runtime.getRuntime().exec("run.bat");
+            } else {
+                Runtime.getRuntime().exec("run.sh");
+            }
+            quitGame();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
 }

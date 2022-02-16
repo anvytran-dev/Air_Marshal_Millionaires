@@ -106,8 +106,7 @@ public class GameOverView extends VBox {
     };
 
     EventHandler<ActionEvent> showNameCollector = actionEvent -> {
-        dynamicArea.getChildren().clear();
-        dynamicArea.getChildren().add(new NameCollector(showMainMenuButtons));
+        ViewInterface.getInstance().restartGame();
     };
 
     EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
