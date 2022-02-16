@@ -4,6 +4,7 @@ package com.millionaires.airmarshal.controller;
 import com.millionaires.airmarshal.models.CompartmentData;
 import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.models.Player;
+import com.millionaires.airmarshal.models.SaveData;
 import com.millionaires.airmarshal.views.CompartmentView;
 import com.millionaires.airmarshal.views.GameOverView;
 import com.millionaires.airmarshal.views.GameView;
@@ -15,7 +16,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -35,7 +38,8 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
-    Duration duration = Duration.ofMinutes(5L);
+    Duration duration = Duration.ofSeconds(5L);
+//    Duration duration = Duration.ofMinutes(5L);
 
     Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
         @Override
@@ -44,11 +48,10 @@ public class ViewInterface {
             System.out.println(secs);
             gameView.updateTimer(secs);
 
-            if(secs.equals("0")) {
+            if (secs.equals("0")) {
                 scene.setRoot(new GameOverView(false));
                 oneSecondCountdown.stop();
             }
-
 
 
         }
@@ -125,17 +128,17 @@ public class ViewInterface {
     public void goDirection(String direction) {
 
         String nextCompartmentName = currentCompartment.getNextCompartmentName(direction);
-        if(nextCompartmentName.equals("cockpit") && !Player.getInstance().canAccessCockpit()){
+        if (nextCompartmentName.equals("cockpit") && !Player.getInstance().canAccessCockpit()) {
             showDialogBox("STEWARDESS: Only passengers with tour posters are allowed to enter");
             return;
         }
 
-        if(nextCompartmentName.equals("galley") && !Player.getInstance().canAccessGalley()){
+        if (nextCompartmentName.equals("galley") && !Player.getInstance().canAccessGalley()) {
             showDialogBox("I shouldn't venture too far without knowing my way around");
             return;
         }
 
-        if(nextCompartmentName.equals("cargo") && !Player.getInstance().canAccessCargo()){
+        if (nextCompartmentName.equals("cargo") && !Player.getInstance().canAccessCargo()) {
             showDialogBox("The cargo room is locked. I wonder who would have a key...");
             return;
         }
@@ -202,7 +205,7 @@ public class ViewInterface {
 
 
     public String subtractTime() {
-        while(duration.isNegative()) {
+        while (duration.isNegative()) {
             return "";
         }
         duration = duration.minusSeconds(1);
@@ -212,12 +215,14 @@ public class ViewInterface {
     public String getRemainingTime() {
         return duration.getSeconds() + "";
     }
-    public void addItem(InteractableData item){
+
+    public void addItem(InteractableData item) {
         currentCompartment.removeItem(item);
         Player.getInstance().addItemToInventory(item);
         setCompartment();
     }
-    public List<InteractableData> getPlayerInventory(){
+
+    public List<InteractableData> getPlayerInventory() {
         return Player.getInstance().getInventory();
     }
 
@@ -228,5 +233,20 @@ public class ViewInterface {
 
     public void getMainMenu() {
         scene.setRoot(new MainMenuView());
+    }
+
+    public SaveData getSaveData() {
+        JSONObject viewInterfaceData = new JSONObject();
+        viewInterfaceData.put("currentCompartment", currentCompartment.getName());
+        viewInterfaceData.put("timeRemaining", duration.getSeconds());
+        viewInterfaceData.put("dateTimeSaved", System.currentTimeMillis());
+
+        JSONObject compartmentData = new JSONObject();
+        for (String compartmentName : this.compartmentData.keySet())
+            compartmentData.put(compartmentName, this.compartmentData.get(compartmentName).serialize());
+
+        JSONObject playerData = Player.getInstance().serialize();
+
+        return new SaveData(viewInterfaceData, playerData, compartmentData);
     }
 }

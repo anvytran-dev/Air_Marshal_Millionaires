@@ -1,13 +1,13 @@
 package com.millionaires.airmarshal.models;
 
-        import com.millionaires.airmarshal.controller.ViewInterface;
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import com.millionaires.airmarshal.controller.ViewInterface;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.List;
-        import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CompartmentData {
 
@@ -18,7 +18,7 @@ public class CompartmentData {
     private Map<String, String> directions;
 
 
-    public static CompartmentData fromJson(JSONObject room, String roomName){
+    public static CompartmentData fromJson(JSONObject room, String roomName) {
 
         //convert list of characters to List<InteractableData>
         List<InteractableData> chars = new ArrayList<>();
@@ -45,11 +45,11 @@ public class CompartmentData {
             directions.put(keyDirection, possibleDirections.getString(keyDirection));
         }
 
-        return new CompartmentData(roomName,room.getString("backgroundUrl"), chars, items, directions);
+        return new CompartmentData(roomName, room.getString("backgroundUrl"), chars, items, directions);
     }
 
 
-    public CompartmentData(String name, String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions){
+    public CompartmentData(String name, String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions) {
         this.name = name;
         this.backgroundUrl = backgroundUrl;
         this.characters = characters;
@@ -99,6 +99,13 @@ public class CompartmentData {
 
     public void removeItem(InteractableData itemToRemove) {
         this.items.removeIf(item -> itemToRemove.getName().equals(item.getName()));
+    }
+
+    public JSONArray serialize() {
+        JSONArray j = new JSONArray();
+        for (InteractableData item : items)
+            j.put(item.getName());
+        return j;
     }
 }
 
