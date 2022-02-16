@@ -4,10 +4,12 @@ import com.millionaires.airmarshal.controller.ViewInterface;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import javax.swing.*;
 
@@ -42,10 +44,12 @@ public class Directionals extends HBox {
 
         VBox middleButtons = new VBox(forwardButton, backButton);
 
-        getChildren().addAll(leftButton,middleButtons,rightButton);
 
         setAlignment(Pos.BOTTOM_CENTER);
         setAlignment(Pos.BOTTOM_CENTER);
+
+        getChildren().addAll(leftButton,middleButtons,rightButton);
+
     }
 
     private Button getButton(String dir, EventHandler<ActionEvent> func){
