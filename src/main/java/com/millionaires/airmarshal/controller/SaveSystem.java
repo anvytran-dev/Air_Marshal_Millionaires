@@ -5,6 +5,7 @@ import com.millionaires.airmarshal.models.SaveData;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -50,5 +51,10 @@ public class SaveSystem {
 
     private static String getFullPath(String fileName) {
         return SAVE_DIRECTORY + File.separator + fileName;
+    }
+
+    public static void deleteSave(String fileName) {
+        File f = new File(fileName);
+        f.delete();
     }
 }

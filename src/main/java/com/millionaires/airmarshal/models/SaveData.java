@@ -32,4 +32,16 @@ public class SaveData {
         data.put("compartment", compartment);
         return data.toString();
     }
+
+    public JSONObject getCompartmentData() {
+        return compartment;
+    }
+
+    public JSONObject getPlayerData() {
+        return player;
+    }
+
+    public JSONObject getViewInterfaceData() {
+        return viewInterface;
+    }
 }

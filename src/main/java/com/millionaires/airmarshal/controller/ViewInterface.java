@@ -16,9 +16,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -105,8 +103,23 @@ public class ViewInterface {
         scene.setRoot(new GameView(new CompartmentView(currentCompartment)));
     }
 
-    public void loadGame() {
+    public String loadGame(String fileName) {
+        try {
+            SaveData saveData = SaveSystem.loadGame(fileName);
 
+            JSONObject playerSave = saveData.getPlayerData();
+            Player.getInstance().setNameAndTransferItemsFromCompartmentsToPlayer(playerSave);
+
+            JSONObject viewInterfaceSave = saveData.getViewInterfaceData();
+            duration = Duration.ofSeconds(viewInterfaceSave.getLong("timeRemaining"));
+            currentCompartment = getCompartmentData(viewInterfaceSave.getString("currentCompartment"));
+
+            startGame();
+
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     public void quitGame() {
@@ -216,9 +229,13 @@ public class ViewInterface {
         return duration.getSeconds() + "";
     }
 
-    public void addItem(InteractableData item) {
+    public void addItemWithoutUpdatingView(InteractableData item) {
         currentCompartment.removeItem(item);
         Player.getInstance().addItemToInventory(item);
+    }
+
+    public void addItem(InteractableData item) {
+        addItemWithoutUpdatingView(item);
         setCompartment();
     }
 
@@ -254,7 +271,7 @@ public class ViewInterface {
 
     public void restartGame() {
         try {
-            if(os.contains("windows")) {
+            if (os.contains("windows")) {
                 Runtime.getRuntime().exec("run.bat");
             } else {
                 Runtime.getRuntime().exec("run.sh");
@@ -262,6 +279,22 @@ public class ViewInterface {
             quitGame();
         } catch (Exception e) {
             System.out.println("Exception: " + e);
+        }
+    }
+
+    public boolean savesExist() {
+        return !SaveSystem.getSaves().isEmpty();
+    }
+
+    public List<String> getSaveNames() {
+        return SaveSystem.getSaves();
+    }
+
+    public void saveGame() {
+        try {
+            SaveSystem.saveGame();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

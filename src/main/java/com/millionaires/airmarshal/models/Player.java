@@ -1,5 +1,6 @@
 package com.millionaires.airmarshal.models;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.Interactable;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -91,13 +92,13 @@ public class Player {
     public boolean hasWinningItems() {
 
         List<InteractableData> winItems = new ArrayList<>();
-        for(InteractableData item : inventory){
-            if(item.getName().equals("boarding pass") || item.getName().equals("poison")){
+        for (InteractableData item : inventory) {
+            if (item.getName().equals("boarding pass") || item.getName().equals("poison")) {
                 winItems.add(item);
 
             }
         }
-        if(winItems.size() == 2) {
+        if (winItems.size() == 2) {
 
             return true;
         }
@@ -114,5 +115,20 @@ public class Player {
 
         j.put("items", inventoryItems);
         return j;
+    }
+
+    public void setNameAndTransferItemsFromCompartmentsToPlayer(JSONObject playerSave) {
+        this.name = playerSave.getString("name");
+        ViewInterface api = ViewInterface.getInstance();
+        for (Object itemName : playerSave.getJSONArray("items")) {
+            String item = (String) itemName;
+            for (CompartmentData compartment : api.getRoomData().values()) {
+                for (InteractableData roomItem : compartment.getItems()) {
+                    if (roomItem.getName().equals(item))
+                        api.addItemWithoutUpdatingView(roomItem);
+
+                }
+            }
+        }
     }
 }

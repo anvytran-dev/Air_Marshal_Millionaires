@@ -17,14 +17,14 @@ public class Directionals extends HBox {
 
     ViewInterface api = ViewInterface.getInstance();
 
-    public Directionals(){
+    public Directionals() {
         Button forwardButton = getButton("↑", goDir("forward"));
         Button backButton = getButton("↓", goDir("back"));
         Button leftButton = getButton("←", goDir("left"));
         Button rightButton = getButton("→", goDir("right"));
 
-        for(String directionAvailable : api.getAvailableCompartmentDirections()){
-            switch(directionAvailable){
+        for (String directionAvailable : api.getAvailableCompartmentDirections()) {
+            switch (directionAvailable) {
                 case "forward":
                     forwardButton.setDisable(false);
                     break;
@@ -42,17 +42,21 @@ public class Directionals extends HBox {
             }
         }
 
-        VBox middleButtons = new VBox(forwardButton, backButton);
+        VBox middleButtons = new VBox(new StandardButton("Save", save()),forwardButton, backButton);
 
 
         setAlignment(Pos.BOTTOM_CENTER);
         setAlignment(Pos.BOTTOM_CENTER);
 
-        getChildren().addAll(leftButton,middleButtons,rightButton);
+        getChildren().addAll(leftButton, middleButtons, rightButton);
 
     }
 
-    private Button getButton(String dir, EventHandler<ActionEvent> func){
+    private EventHandler<ActionEvent> save() {
+        return e -> ViewInterface.getInstance().saveGame();
+    }
+
+    private Button getButton(String dir, EventHandler<ActionEvent> func) {
         Button dirButton = new Button(dir);
         dirButton.setOnAction(func);
         dirButton.setDisable(true);
@@ -62,7 +66,6 @@ public class Directionals extends HBox {
     private EventHandler<ActionEvent> goDir(String dir) {
         return event -> api.goDirection(dir);
     }
-
 
 
 }

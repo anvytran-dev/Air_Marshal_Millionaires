@@ -2,6 +2,7 @@ package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.InstructionsDisplay;
+import com.millionaires.airmarshal.views.components.SaveLoader;
 import com.millionaires.airmarshal.views.components.NameCollector;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class MainMenuView extends VBox {
 
         dynamicArea.getChildren().add(menuButtons);
         dynamicArea.setAlignment(Pos.CENTER);
-        dynamicArea.setPadding(new Insets(100,0,0,0));
+        dynamicArea.setPadding(new Insets(100, 0, 0, 0));
 
         // Add all the children to the view and set properties
         getChildren().addAll(plane, logo, dynamicArea);
@@ -66,9 +67,10 @@ public class MainMenuView extends VBox {
             StandardButton playBtn = new StandardButton("Play", showNameCollector);
             playBtn.setPrefWidth(200);
 
-            StandardButton loadBtn = new StandardButton("Load", showNameCollector);
+            StandardButton loadBtn = new StandardButton("Load", showSaveLoader);
             loadBtn.setPrefWidth(200);
-            loadBtn.setDisable(true);
+            if (!ViewInterface.getInstance().savesExist())
+                loadBtn.setDisable(true);
 
             StandardButton instBtn = new StandardButton("Instructions", showInstructions);
             instBtn.setPrefWidth(200);
@@ -81,6 +83,7 @@ public class MainMenuView extends VBox {
             setSpacing(5);
         }
     }
+
     EventHandler<ActionEvent> showMainMenuButtons = actionEvent -> {
         dynamicArea.getChildren().clear();
         dynamicArea.getChildren().addAll(new MenuButtons());
@@ -89,6 +92,11 @@ public class MainMenuView extends VBox {
     EventHandler<ActionEvent> showNameCollector = actionEvent -> {
         dynamicArea.getChildren().clear();
         dynamicArea.getChildren().add(new NameCollector(showMainMenuButtons));
+    };
+
+    EventHandler<ActionEvent> showSaveLoader = actionEvent -> {
+        dynamicArea.getChildren().clear();
+        dynamicArea.getChildren().add(new SaveLoader(showMainMenuButtons));
     };
 
     EventHandler<ActionEvent> showInstructions = actionEvent -> {
