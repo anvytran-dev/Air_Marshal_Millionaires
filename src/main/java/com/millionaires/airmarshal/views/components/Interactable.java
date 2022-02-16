@@ -26,14 +26,17 @@ public class Interactable extends ImageView {
 
         return mouseEvent -> {
 
+            
+
+            if(data.getName().equals("stewardess") && Player.getInstance().hasWinningItems()) {
+                ViewInterface.getInstance().winGame();
+            }
+
             if(data.isItem()) {
                 ViewInterface.getInstance().addItem(data);
             }
             ViewInterface.getInstance().showDialogBox(data.getDialog());
 
-            if(data.getName().equals("stewardess") && Player.getInstance().hasWinningItems()) {
-                ViewInterface.getInstance().winGame();
-            }
 
         };
     }

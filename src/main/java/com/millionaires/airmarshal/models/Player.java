@@ -85,10 +85,16 @@ public class Player {
     }
 
     public boolean hasWinningItems() {
+
+        List<InteractableData> winItems = new ArrayList<>();
         for(InteractableData item : inventory){
-            if(item.getName().equals("boarding pass") && item.getName().equals("poison")){
-                return true;
+            if(item.getName().equals("boarding pass") || item.getName().equals("poison")){
+                winItems.add(item);
             }
+        }
+        if(winItems.size() == 2) {
+
+            return true;
         }
         return false;
     }
