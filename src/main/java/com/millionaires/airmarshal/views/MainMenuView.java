@@ -26,10 +26,12 @@ public class MainMenuView extends VBox {
         // The text logo
         ImageView logo = new ImageView(getPath("large_logo.png"));
         logo.setEffect(new DropShadow(60, Color.BLACK));
+        logo.setFitWidth(500);
+        logo.setPreserveRatio(true);
 
         // Get the plane image and set properties
         ImageView plane = new ImageView(getPath("plane.png"));
-        plane.setFitWidth(600);
+        plane.setFitWidth(400);
         plane.setPreserveRatio(true);
 
         // For some reason, instantiating these outside of constructor disables onAction.
@@ -39,7 +41,7 @@ public class MainMenuView extends VBox {
 
         dynamicArea.getChildren().add(menuButtons);
         dynamicArea.setAlignment(Pos.CENTER);
-        dynamicArea.setPadding(new Insets(100, 0, 0, 0));
+        dynamicArea.setPadding(new Insets(60, 0, 0, 0));
 
         // Add all the children to the view and set properties
         getChildren().addAll(plane, logo, dynamicArea);

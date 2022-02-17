@@ -25,10 +25,12 @@ public class GameOverView extends VBox {
         // The text logo
         ImageView logo = new ImageView(getPath("large_logo.png"));
         logo.setEffect(new DropShadow(60, Color.BLACK));
+        logo.setFitWidth(500);
+        logo.setPreserveRatio(true);
 
         // Get the plane image and set properties
         ImageView plane = new ImageView(getPath("plane.png"));
-        plane.setFitWidth(600);
+        plane.setFitWidth(400);
         plane.setPreserveRatio(true);
 
         // Game Over Display
