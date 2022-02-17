@@ -14,4 +14,6 @@ module com.millionaires.airmarshal {
 
     opens com.millionaires.airmarshal to javafx.fxml;
     exports com.millionaires.airmarshal;
+    exports com.millionaires.airmarshal.archive;
+    opens com.millionaires.airmarshal.archive to javafx.fxml;
 }
