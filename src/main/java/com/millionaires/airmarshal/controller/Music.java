@@ -5,6 +5,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
+/**
+ * The source of audio control.
+ */
 public class Music {
 
     private final static String AUDIO_PATH = "resources/music/mainTrack.wav";
@@ -13,6 +16,13 @@ public class Music {
     private static File audioFile;
     private static AudioInputStream audioStream;
 
+    /**
+     * Starts and stops the audio track. The initial call will load the audio into memory
+     * and keep it there for the duration of the program. This lets subsequent restarts
+     * begin nearly immediately instead of reloading the track. Keeps track of the internal
+     * audio playback status to know whether to start or stop audio.
+     * @throws Exception if the method is unable to play the audio
+     */
     public static void toggle() throws Exception {
         if (clip == null)
             clip = AudioSystem.getClip();
