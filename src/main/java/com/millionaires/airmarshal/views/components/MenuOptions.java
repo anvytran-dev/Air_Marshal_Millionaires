@@ -2,10 +2,13 @@ package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -23,10 +26,15 @@ public class MenuOptions extends VBox {
         Button helpBtn = getMenuButton("Help");
         helpBtn.setOnMouseClicked(showHelpMenu);
 
+        Label inventoryLabel = new Label("Options");
+        inventoryLabel.setFont(Font.font("System Regular", FontWeight.BOLD, 30));
+        inventoryLabel.setTextFill(Color.WHITE);
+        inventoryLabel.setPadding(new Insets(0,0,10,0));
+
         setStyle("-fx-base: #3f00ff; -fx-font-size:" + 20);
         setSpacing(5);
         setAlignment(Pos.CENTER);
-        getChildren().addAll(soundBtn, saveBtn, helpBtn);
+        getChildren().addAll(inventoryLabel, soundBtn, saveBtn, helpBtn);
     }
 
     private EventHandler<MouseEvent> toggleSound = mouseEvent -> {

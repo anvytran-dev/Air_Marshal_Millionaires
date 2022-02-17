@@ -1,11 +1,17 @@
 package com.millionaires.airmarshal.views.components;
 
+import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.InteractableData;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
@@ -27,6 +33,13 @@ public class ItemsDisplay extends StackPane {
             item.setPreserveRatio(true);
             display.getChildren().add(item);
         }
-        getChildren().addAll(box, display);
+
+        Label label = new Label("Items in " + ViewInterface.getInstance().getCompartmentName());
+        label.setFont(Font.font("System Regular", FontWeight.NORMAL, 20));
+        label.setTextFill(Color.WHITE);
+        label.setPadding(new Insets(5));
+        VBox contents = new VBox(label, display);
+
+        getChildren().addAll(box, contents);
     }
 }

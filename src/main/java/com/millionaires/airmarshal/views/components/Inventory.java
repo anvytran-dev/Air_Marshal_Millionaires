@@ -16,7 +16,6 @@ import javafx.scene.text.FontWeight;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Inventory extends VBox {
 
     public Inventory() {
@@ -34,16 +33,15 @@ public class Inventory extends VBox {
             button1.setEffect(new DropShadow(30, Color.PURPLE));
             button1.setText(item.getPrettyName());
             button1.setPrefWidth(300);
-            button1.setStyle("-fx-base: #6495ED; -fx-font-size:" + 20);
-            button1.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+            button1.setStyle("-fx-base: #6495ED;");
+            button1.setFont(Font.font("System Regular", FontWeight.BOLD, 20));
+            button1.setTextFill(Color.WHITE);
             nodesToAdd.add(button1);
         }
 
         getChildren().addAll(nodesToAdd);
         setAlignment(Pos.CENTER);
     }
-
-
 }
 
 

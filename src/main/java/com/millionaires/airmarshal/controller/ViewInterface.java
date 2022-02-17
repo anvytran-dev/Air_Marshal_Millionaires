@@ -39,7 +39,7 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
-//        Duration duration = Duration.ofSeconds(5L);
+    //        Duration duration = Duration.ofSeconds(5L);
     Duration duration = Duration.ofMinutes(5L);
 
     Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
@@ -97,6 +97,7 @@ public class ViewInterface {
         setCompartment();
         oneSecondCountdown.setCycleCount(Timeline.INDEFINITE);
         oneSecondCountdown.play();
+        toggleMusic();
     }
 
     private void setCompartment() {
