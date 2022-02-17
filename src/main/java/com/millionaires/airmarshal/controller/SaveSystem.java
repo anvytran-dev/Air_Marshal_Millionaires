@@ -20,6 +20,9 @@ public class SaveSystem {
         List<String> fileNames = new ArrayList<>();
         File directory = new File(SAVE_DIRECTORY);
 
+        if(!directory.exists())
+            return fileNames;
+
         for (File f : Objects.requireNonNull(directory.listFiles()))
             fileNames.add(f.getName());
 
