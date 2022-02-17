@@ -1,7 +1,6 @@
 package com.millionaires.airmarshal.models;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
-import com.millionaires.airmarshal.views.components.Interactable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

@@ -1,7 +1,6 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,15 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import javax.swing.*;
 
 public class Directionals extends HBox {
 
     ViewInterface api = ViewInterface.getInstance();
 
     public Directionals() {
+        super();
         Button forwardButton = getButton("↑", goDir("forward"));
         Button backButton = getButton("↓", goDir("back"));
         Button leftButton = getButton("←", goDir("left"));
@@ -42,18 +39,11 @@ public class Directionals extends HBox {
             }
         }
 
-        VBox middleButtons = new VBox(new StandardButton("Save", save()),forwardButton, backButton);
-
-
-        setAlignment(Pos.BOTTOM_CENTER);
+        VBox middleButtons = new VBox(forwardButton, backButton);
         setAlignment(Pos.BOTTOM_CENTER);
 
         getChildren().addAll(leftButton, middleButtons, rightButton);
-
-    }
-
-    private EventHandler<ActionEvent> save() {
-        return e -> ViewInterface.getInstance().saveGame();
+        setPadding(new Insets(0,0,10,0));
     }
 
     private Button getButton(String dir, EventHandler<ActionEvent> func) {

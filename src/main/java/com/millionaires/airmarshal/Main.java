@@ -2,11 +2,8 @@ package com.millionaires.airmarshal;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.models.CompartmentData;
-import com.millionaires.airmarshal.views.CompartmentView;
-import com.millionaires.airmarshal.views.GameView;
 import com.millionaires.airmarshal.views.MainMenuView;
 import javafx.application.Application;
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

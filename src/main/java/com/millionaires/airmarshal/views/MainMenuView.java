@@ -2,8 +2,8 @@ package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.InstructionsDisplay;
-import com.millionaires.airmarshal.views.components.SaveLoader;
 import com.millionaires.airmarshal.views.components.NameCollector;
+import com.millionaires.airmarshal.views.components.SaveLoader;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

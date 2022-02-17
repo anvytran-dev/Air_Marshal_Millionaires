@@ -1,98 +1,100 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
-import com.millionaires.airmarshal.models.InteractableData;
-import com.millionaires.airmarshal.views.CompartmentView;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
-public class SideMenu extends  BorderPane{
+public class SideMenu extends BorderPane {
 
     private ViewInterface api = ViewInterface.getInstance();
     private Label currentCompartment;
     private Inventory inventory = new Inventory();
     private MenuOptions menuOptions = new MenuOptions();
     private boolean shouldShowInventory = true;
-    Label timeRemaining = new Label(api.getRemainingTime());
+    private Label timeRemaining = new Label("Time remaining: " + api.getRemainingTime());
+    VBox middleSection;
+    VBox menuButtonHolder;
 
     public SideMenu() {
-        System.out.println(this);
-
-        Button menuButton = new Button("=");
-        menuButton.setPrefWidth(60);
-        menuButton.setStyle("-fx-base: #6495ED; -fx-font-size:" + 20);
-        menuButton.setOnMouseClicked(menuButtonFunction);
 
         currentCompartment = new Label(api.getCompartmentName());
+
         Directionals directionals = new Directionals();
+        directionals.setStyle("-fx-base: #3f00ff; -fx-font-size:" + 35);
+        directionals.setEffect(new DropShadow(45, Color.BLACK));
 
-        currentCompartment.setStyle("-fx-base: #6495ED; -fx-font-size:" + 30);
+        currentCompartment.setFont(Font.font("System regular", FontWeight.NORMAL, 30));
+        currentCompartment.setTextFill(Color.WHITE);
 
+        timeRemaining.setFont(Font.font("System regular", FontWeight.BOLD, 20));
+        timeRemaining.setTextFill(Color.WHITE);
 
-        timeRemaining.setStyle("-fx-base: #6495ED; -fx-font-size:" + 20);
+        menuButtonHolder = new VBox(getMenuButton());
+        menuButtonHolder.setAlignment(Pos.CENTER);
 
+        middleSection = new VBox(inventory);
+        VBox bottomSection = new VBox();
 
-        Separator separator = new Separator(Orientation.HORIZONTAL);
+        bottomSection.getChildren().addAll(new CustomSeparator(), directionals);
 
-        VBox topSection = new VBox(menuButton, currentCompartment, timeRemaining);
-        VBox middleSection = new VBox(inventory);
-        VBox bottomSection = new VBox(directionals);
-
-
+        VBox topSection = new VBox(menuButtonHolder, currentCompartment, timeRemaining, new CustomSeparator());
         topSection.setAlignment(Pos.CENTER);
         topSection.setSpacing(15);
+        topSection.setPadding(new Insets(10,0,0,0));
         setTop(topSection);
 
-
-        middleSection.setTranslateY(100);
         middleSection.setEffect(new DropShadow(70, Color.PURPLE));
         setCenter(middleSection);
 
-
-
-
-
-
-        setBackground(new Background(new BackgroundFill(Color.DARKVIOLET, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(getBackgroundImage(getPath("bg.png")));
         setStyle("-fx-font-family: 'sans-serif'");
         setEffect(new DropShadow(50, Color.BLACK));
 
-        bottomSection.setStyle("-fx-base: #3f00ff; -fx-font-size:" + 35);
-        bottomSection.setEffect(new DropShadow(45, Color.BLACK));
-//        bottomSection.setTranslateY(200);
-
-//        this.getChildren().add(bottomSection);
         setBottom(bottomSection);
-        bottomSection.setAlignment(Pos.CENTER);
-
     }
 
+    private String getPath(String fileName) {
+        return "file:resources/images/MainMenuView/" + fileName;
+    }
 
-    EventHandler menuButtonFunction = event -> {
-        getChildren().remove(1);
-        if (shouldShowInventory) {
-            getChildren().add(1, inventory);
-        } else {
-            getChildren().add(1, menuOptions);
-        }
+    private Background getBackgroundImage(String path) {
+        Image image = new Image(path, true);
+        BackgroundSize size = new BackgroundSize(1, 1, true, true, true, true);
+        BackgroundImage bgImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, size);
+        return new Background(bgImage);
+    }
+
+    EventHandler<MouseEvent> toggleMenuOptionsInventory = event -> {
         shouldShowInventory = !shouldShowInventory;
+        Node node = shouldShowInventory ? new Inventory() : new MenuOptions();
+        middleSection.getChildren().clear();
+        middleSection.getChildren().add(node);
+        menuButtonHolder.getChildren().clear();
+        menuButtonHolder.getChildren().add(getMenuButton());
+
+
     };
 
     public void updateTimer(String secs) {
-        timeRemaining.setText(secs);
+        timeRemaining.setText("Time remaining: " + secs);
     }
 
-
+    private Button getMenuButton() {
+        String icon = shouldShowInventory ? "=" : "x";
+        Button button = shouldShowInventory ? new StandardButton(icon) : StandardButton.red(icon);
+        button.setOnMouseClicked(toggleMenuOptionsInventory);
+        return button;
+    }
 }

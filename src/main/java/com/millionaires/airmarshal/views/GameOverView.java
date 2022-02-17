@@ -2,23 +2,17 @@ package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.DialogBox;
-import com.millionaires.airmarshal.views.components.InstructionsDisplay;
 import com.millionaires.airmarshal.views.components.NameCollector;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class GameOverView extends VBox {
 
@@ -86,13 +80,13 @@ public class GameOverView extends VBox {
         MenuButtons() {
             super();
 
-            StandardButton playBtn = new StandardButton("Play Again", showNameCollector);
+            StandardButton playBtn = new StandardButton("Play Again", restartGame);
             playBtn.setPrefWidth(200);
 
             StandardButton quitBtn = new StandardButton("Quit", quitGame);
             quitBtn.setPrefWidth(200);
 
-            StandardButton mainMenuBtn = new StandardButton("Main Menu", mainMenu);
+            StandardButton mainMenuBtn = new StandardButton("Main Menu", restartGame);
             mainMenuBtn.setPrefWidth(200);
 
             getChildren().addAll(playBtn, quitBtn, mainMenuBtn);
@@ -105,12 +99,9 @@ public class GameOverView extends VBox {
         dynamicArea.getChildren().addAll(new MenuButtons());
     };
 
-    EventHandler<ActionEvent> showNameCollector = actionEvent -> {
-        ViewInterface.getInstance().restartGame();
-    };
+    EventHandler<ActionEvent> restartGame = actionEvent -> ViewInterface.getInstance().restartGame();
 
     EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
 
-    EventHandler<ActionEvent> mainMenu = event -> ViewInterface.getInstance().getMainMenu();
 }
 

@@ -2,8 +2,6 @@ package com.millionaires.airmarshal.controller;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ViewInterfaceTest {
 
     @Test
@@ -30,5 +28,11 @@ class ViewInterfaceTest {
 
         api.toggleMusic();
         System.out.println("Turned off again");
+    }
+
+    @Test
+    public void testCapLetterThing(){
+        String result = ViewInterface.getInstance().getCompartmentName();
+        System.out.println(result);
     }
 }

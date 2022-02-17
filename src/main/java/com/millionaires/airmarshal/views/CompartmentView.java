@@ -1,16 +1,10 @@
 package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.models.CompartmentData;
-import com.millionaires.airmarshal.models.InteractableData;
 import com.millionaires.airmarshal.views.components.CharacterDisplay;
-import com.millionaires.airmarshal.views.components.Interactable;
 import com.millionaires.airmarshal.views.components.ItemsDisplay;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 public class CompartmentView extends AnchorPane {
     private final double CHARACTER_HEIGHT = 500;

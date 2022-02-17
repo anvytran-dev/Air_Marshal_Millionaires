@@ -1,5 +1,8 @@
 package com.millionaires.airmarshal.archive;
 
+import com.millionaires.airmarshal.archive.music.MusicPlayer;
+import org.json.JSONObject;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,9 +11,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.millionaires.airmarshal.archive.music.MusicPlayer;
-import org.json.*;
 
 
 public class Game{

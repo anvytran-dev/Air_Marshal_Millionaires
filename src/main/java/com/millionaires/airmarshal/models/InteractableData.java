@@ -31,6 +31,10 @@ public class InteractableData {
         );
     }
 
+    public String getPrettyName(){
+        return ViewInterface.getInstance().getProperCase(getName());
+    }
+
     public String getName() {
         return name;
     }
@@ -40,7 +44,6 @@ public class InteractableData {
     }
 
     public String getImagePath() {
-        System.out.println(imagePath);
         return "file:" + imagePath;
     }
 

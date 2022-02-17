@@ -20,7 +20,10 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ViewInterface {
     // Singleton
@@ -36,22 +39,19 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
-//    Duration duration = Duration.ofSeconds(5L);
+//        Duration duration = Duration.ofSeconds(5L);
     Duration duration = Duration.ofMinutes(5L);
 
     Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
         @Override
         public void handle(ActionEvent event) {
             String secs = ViewInterface.getInstance().subtractTime();
-            System.out.println(secs);
             gameView.updateTimer(secs);
 
             if (secs.equals("0")) {
                 scene.setRoot(new GameOverView(false));
                 oneSecondCountdown.stop();
             }
-
-
         }
     }));
 
@@ -196,7 +196,27 @@ public class ViewInterface {
     }
 
     public String getCompartmentName() {
-        return currentCompartment.getName();
+        String n = currentCompartment.getName();
+        return getProperCase(n);
+    }
+
+    public String getProperCase(String toProcess) {
+        String[] words = toProcess.split(" ");
+        StringBuilder output = new StringBuilder("");
+
+        for (int i = 0; i < words.length; i++) {
+            if (i > 0)
+                output.append(" ");
+
+            String word = words[i];
+            char c = word.toCharArray()[0];
+            String s = Character.toString(c).toUpperCase();
+            String wordWithoutFirstLetter = word.substring(1);
+            s += wordWithoutFirstLetter;
+            output.append(s);
+        }
+
+        return output.toString();
     }
 
     public void setGameView(GameView gv) {
@@ -302,5 +322,9 @@ public class ViewInterface {
             e.printStackTrace();
             return "Unable to play audio";
         }
+    }
+
+    public void showHelpMenu() {
+        gameView.showHelpMenu();
     }
 }

@@ -38,6 +38,7 @@ public class NameCollector extends VBox {
         input.setFont(Font.font(20));
         input.setAlignment(Pos.CENTER);
 
+
         errorMessage.setFill(Color.RED);
         errorMessage.setFont(Font.font(20));
 

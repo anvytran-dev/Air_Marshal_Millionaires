@@ -1,11 +1,10 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.models.InteractableData;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+
 import java.util.List;
 
 public class CharacterDisplay extends StackPane {
