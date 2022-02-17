@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,12 +21,15 @@ public class NameCollector extends VBox {
 
     public NameCollector(EventHandler<ActionEvent> onDismiss) {
         super(5);
+
+        input.setOnKeyPressed(startGameFromEnterKeyPress());
+
         Text prompt = new Text("Enter your name");
         prompt.setFill(Color.WHITE);
         prompt.setFont(Font.font(20));
 
         StandardButton backBtn = StandardButton.red("Back", onDismiss);
-        StandardButton playBtn = new StandardButton("Play", onSubmit);
+        StandardButton playBtn = new StandardButton("Play", startGameFromButtonClick());
 
         HBox bottomBtns = new HBox(20, backBtn, playBtn);
         bottomBtns.setAlignment(Pos.BOTTOM_CENTER);
@@ -41,16 +46,26 @@ public class NameCollector extends VBox {
         setMaxWidth(300);
     }
 
+    private EventHandler<KeyEvent> startGameFromEnterKeyPress() {
+        return e -> {
+            if (e.getCode() == KeyCode.ENTER)
+                startGame();
+        };
+    }
 
-    private EventHandler<ActionEvent> onSubmit = actionEvent -> {
+    private EventHandler<ActionEvent> startGameFromButtonClick() {
+        return e -> startGame();
+    }
+
+    private void startGame(){
         errorMessage.setText(""); // Remove any error message that exists
 
         String desiredName = input.getText();
         ViewInterface api = ViewInterface.getInstance();
         if (api.setPlayerName(desiredName)) {
             api.startGame();
-        }else{
+        } else {
             errorMessage.setText("Name is required");
         }
-    };
+    }
 }
