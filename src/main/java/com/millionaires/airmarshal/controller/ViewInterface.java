@@ -36,8 +36,8 @@ public class ViewInterface {
     private GameView gameView;
     private Scene scene;
     private CompartmentData currentCompartment = getCompartmentData("commercial class");
-    Duration duration = Duration.ofSeconds(5L);
-//    Duration duration = Duration.ofMinutes(5L);
+//    Duration duration = Duration.ofSeconds(5L);
+    Duration duration = Duration.ofMinutes(5L);
 
     Timeline oneSecondCountdown = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), new EventHandler<>() {
         @Override
@@ -162,10 +162,6 @@ public class ViewInterface {
 
     public void takeItem(InteractableData item) {
         Player.getInstance().getInventory().remove(item);
-
-    }
-
-    public void toggleMusic() {
 
     }
 
@@ -295,6 +291,16 @@ public class ViewInterface {
             SaveSystem.saveGame();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public String toggleMusic() {
+        try {
+            Music.toggle();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Unable to play audio";
         }
     }
 }

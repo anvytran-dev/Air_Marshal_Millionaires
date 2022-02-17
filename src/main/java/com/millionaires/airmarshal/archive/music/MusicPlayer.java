@@ -1,4 +1,4 @@
-package com.millionaires.airmarshal.music;
+package com.millionaires.airmarshal.archive.music;
 // Java program to play an Audio
 // file using Clip Object
 
@@ -43,7 +43,7 @@ public class MusicPlayer {
 
     public static void init() {
         try {
-            filePath = "resources/music/Future - Mask Off (Instrumental).wav";
+            filePath = "resources/music/mainTrack.wav";
             audioPlayer =
                     new MusicPlayer();
 
