@@ -1,8 +1,6 @@
-package com.millionaires.airmarshal.controller;
+package com.millionaires.airmarshal.archive;
 
-import com.millionaires.airmarshal.Item;
-import com.millionaires.airmarshal.Player;
-import com.millionaires.airmarshal.music.MusicPlayer;
+import com.millionaires.airmarshal.archive.music.MusicPlayer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class VerbParser {
 

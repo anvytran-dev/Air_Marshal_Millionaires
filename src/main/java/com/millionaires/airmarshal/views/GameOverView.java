@@ -2,23 +2,21 @@ package com.millionaires.airmarshal.views;
 
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.DialogBox;
-import com.millionaires.airmarshal.views.components.InstructionsDisplay;
 import com.millionaires.airmarshal.views.components.NameCollector;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+
+/**
+ * The GameOverView object creates the Game Over screen that the user sees when they win or lose the game. Depending on if they win or lose, the message that they will see will be different. The Game Over screen also allows the player to Play Again or go back to the Main Menu.
+ */
 
 public class GameOverView extends VBox {
 
@@ -31,10 +29,12 @@ public class GameOverView extends VBox {
         // The text logo
         ImageView logo = new ImageView(getPath("large_logo.png"));
         logo.setEffect(new DropShadow(60, Color.BLACK));
+        logo.setFitWidth(500);
+        logo.setPreserveRatio(true);
 
         // Get the plane image and set properties
         ImageView plane = new ImageView(getPath("plane.png"));
-        plane.setFitWidth(600);
+        plane.setFitWidth(400);
         plane.setPreserveRatio(true);
 
         // Game Over Display
@@ -86,13 +86,13 @@ public class GameOverView extends VBox {
         MenuButtons() {
             super();
 
-            StandardButton playBtn = new StandardButton("Play Again", showNameCollector);
+            StandardButton playBtn = new StandardButton("Play Again", restartGame);
             playBtn.setPrefWidth(200);
 
             StandardButton quitBtn = new StandardButton("Quit", quitGame);
             quitBtn.setPrefWidth(200);
 
-            StandardButton mainMenuBtn = new StandardButton("Main Menu", mainMenu);
+            StandardButton mainMenuBtn = new StandardButton("Main Menu", restartGame);
             mainMenuBtn.setPrefWidth(200);
 
             getChildren().addAll(playBtn, quitBtn, mainMenuBtn);
@@ -105,13 +105,9 @@ public class GameOverView extends VBox {
         dynamicArea.getChildren().addAll(new MenuButtons());
     };
 
-    EventHandler<ActionEvent> showNameCollector = actionEvent -> {
-        dynamicArea.getChildren().clear();
-        dynamicArea.getChildren().add(new NameCollector(showMainMenuButtons));
-    };
+    EventHandler<ActionEvent> restartGame = actionEvent -> ViewInterface.getInstance().restartGame();
 
     EventHandler<ActionEvent> quitGame = event -> ViewInterface.getInstance().quitGame();
 
-    EventHandler<ActionEvent> mainMenu = event -> ViewInterface.getInstance().getMainMenu();
 }
 

@@ -1,4 +1,4 @@
-package com.millionaires.airmarshal;
+package com.millionaires.airmarshal.archive;
 
 public enum Item {
     YELLOW_HANDKERCHIEF("yellow handkerchief"),

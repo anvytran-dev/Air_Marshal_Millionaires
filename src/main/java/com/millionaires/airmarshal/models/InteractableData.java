@@ -3,6 +3,11 @@ package com.millionaires.airmarshal.models;
 import com.millionaires.airmarshal.controller.ViewInterface;
 import org.json.JSONObject;
 
+/**
+ * InteractableData objects are the objects that the player can interact with(click on) like the characters or items in the game.
+ * Each object has a name, image path, and dialog
+ */
+
 public class InteractableData {
 
     private String name;
@@ -31,6 +36,10 @@ public class InteractableData {
         );
     }
 
+    public String getPrettyName(){
+        return ViewInterface.getInstance().getProperCase(getName());
+    }
+
     public String getName() {
         return name;
     }
@@ -40,7 +49,6 @@ public class InteractableData {
     }
 
     public String getImagePath() {
-        System.out.println(imagePath);
         return "file:" + imagePath;
     }
 

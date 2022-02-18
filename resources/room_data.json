@@ -115,7 +115,9 @@
           "x": 500,
           "y": 500,
           "image": "resources/images/CockpitView/officer.png",
-          "dialog" : "FIRST OFFICER: Our aircraft guide shows all the nooks and crannies of this model aircraft"
+          "dialog" : "FIRST OFFICER: Our aircraft guide shows all\nthe nooks and crannies of this model aircraft"
+
+
         }
       ],
       "items": [
