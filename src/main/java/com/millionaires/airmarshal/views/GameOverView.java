@@ -14,6 +14,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * The GameOverView object creates the Game Over screen that the user sees when they win or lose the game. Depending on if they win or lose, the message that they will see will be different. The Game Over screen also allows the player to Play Again or go back to the Main Menu.
+ */
+
 public class GameOverView extends VBox {
 
     HBox dynamicArea = new HBox();

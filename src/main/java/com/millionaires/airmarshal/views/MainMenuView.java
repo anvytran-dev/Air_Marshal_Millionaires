@@ -15,6 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * The MainMenuView object allows the player to see the Main Menu. In the Main Menu, they can choose to Play the game, Load a previous game state that they have saved, Read the instructions, or Quit the game (exit).
+ */
+
 public class MainMenuView extends VBox {
 
     HBox dynamicArea = new HBox();

@@ -16,7 +16,10 @@ public class CompartmentData {
     private List<InteractableData> items;
     private Map<String, String> directions;
 
-
+    /**
+     * fromJson converts the data from room_data.json to CompartmentData
+     * so that it can be used throughout the program
+     */
     public static CompartmentData fromJson(JSONObject room, String roomName) {
 
         //convert list of characters to List<InteractableData>
@@ -47,7 +50,9 @@ public class CompartmentData {
         return new CompartmentData(roomName, room.getString("backgroundUrl"), chars, items, directions);
     }
 
-
+    /**
+     * This is the constructor to create CompartmentData objects
+     */
     public CompartmentData(String name, String backgroundUrl, List<InteractableData> characters, List<InteractableData> items, Map<String, String> directions) {
         this.name = name;
         this.backgroundUrl = backgroundUrl;

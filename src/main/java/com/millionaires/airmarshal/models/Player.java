@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The player object represents the player. It is a singleton. Only one player instance is created per game.
+ */
+
 public class Player {
 
     // Singleton boilerplate -------------------

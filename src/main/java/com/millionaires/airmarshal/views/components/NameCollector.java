@@ -14,6 +14,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * The NameCollector object asks the player to enter their name and sets their name.
+ */
+
 public class NameCollector extends VBox {
 
     TextField input = new TextField();
