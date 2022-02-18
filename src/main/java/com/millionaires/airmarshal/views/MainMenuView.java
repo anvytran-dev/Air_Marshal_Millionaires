@@ -3,6 +3,7 @@ package com.millionaires.airmarshal.views;
 import com.millionaires.airmarshal.controller.ViewInterface;
 import com.millionaires.airmarshal.views.components.InstructionsDisplay;
 import com.millionaires.airmarshal.views.components.NameCollector;
+import com.millionaires.airmarshal.views.components.SaveLoader;
 import com.millionaires.airmarshal.views.components.StandardButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+/**
+ * The MainMenuView object allows the player to see the Main Menu. In the Main Menu, they can choose to Play the game, Load a previous game state that they have saved, Read the instructions, or Quit the game (exit).
+ */
 
 public class MainMenuView extends VBox {
 
@@ -25,10 +30,12 @@ public class MainMenuView extends VBox {
         // The text logo
         ImageView logo = new ImageView(getPath("large_logo.png"));
         logo.setEffect(new DropShadow(60, Color.BLACK));
+        logo.setFitWidth(500);
+        logo.setPreserveRatio(true);
 
         // Get the plane image and set properties
         ImageView plane = new ImageView(getPath("plane.png"));
-        plane.setFitWidth(600);
+        plane.setFitWidth(400);
         plane.setPreserveRatio(true);
 
         // For some reason, instantiating these outside of constructor disables onAction.
@@ -38,7 +45,7 @@ public class MainMenuView extends VBox {
 
         dynamicArea.getChildren().add(menuButtons);
         dynamicArea.setAlignment(Pos.CENTER);
-        dynamicArea.setPadding(new Insets(100,0,0,0));
+        dynamicArea.setPadding(new Insets(60, 0, 0, 0));
 
         // Add all the children to the view and set properties
         getChildren().addAll(plane, logo, dynamicArea);
@@ -66,9 +73,10 @@ public class MainMenuView extends VBox {
             StandardButton playBtn = new StandardButton("Play", showNameCollector);
             playBtn.setPrefWidth(200);
 
-            StandardButton loadBtn = new StandardButton("Load", showNameCollector);
+            StandardButton loadBtn = new StandardButton("Load", showSaveLoader);
             loadBtn.setPrefWidth(200);
-            loadBtn.setDisable(true);
+            if (!ViewInterface.getInstance().savesExist())
+                loadBtn.setDisable(true);
 
             StandardButton instBtn = new StandardButton("Instructions", showInstructions);
             instBtn.setPrefWidth(200);
@@ -81,6 +89,7 @@ public class MainMenuView extends VBox {
             setSpacing(5);
         }
     }
+
     EventHandler<ActionEvent> showMainMenuButtons = actionEvent -> {
         dynamicArea.getChildren().clear();
         dynamicArea.getChildren().addAll(new MenuButtons());
@@ -89,6 +98,11 @@ public class MainMenuView extends VBox {
     EventHandler<ActionEvent> showNameCollector = actionEvent -> {
         dynamicArea.getChildren().clear();
         dynamicArea.getChildren().add(new NameCollector(showMainMenuButtons));
+    };
+
+    EventHandler<ActionEvent> showSaveLoader = actionEvent -> {
+        dynamicArea.getChildren().clear();
+        dynamicArea.getChildren().add(new SaveLoader(showMainMenuButtons));
     };
 
     EventHandler<ActionEvent> showInstructions = actionEvent -> {

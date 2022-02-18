@@ -1,14 +1,19 @@
 package com.millionaires.airmarshal.views.components;
 
 import com.millionaires.airmarshal.models.InteractableData;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import java.util.List;
 
+/**
+ * Renders the provided InteractableData list using standard size, spacing, and positioning.
+ */
 public class CharacterDisplay extends StackPane {
+    /**
+     * Renders the provided InteractableData list using standard size, spacing, and positioning.
+     * @param characters a List of InteractableData to display
+     */
     public CharacterDisplay(List<InteractableData> characters) {
         super();
 
