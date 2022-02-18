@@ -11,10 +11,19 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Renders the game's instructions or any other String in a semitransparent black rectangle
+ */
 public class InstructionsDisplay extends VBox {
     double WIDTH = 900;
     double HEIGHT = 450;
 
+    /**
+     * Renders the game's instructions or any other String in a semitransparent black rectangle.
+     * Can be self-dismissing if provided an onDismiss callback
+     * @param instructions the text to display
+     * @param onDismiss the function to execute to enable dismissing
+     */
     public InstructionsDisplay(String instructions, EventHandler<ActionEvent> onDismiss) {
         super(5);
 
@@ -30,6 +39,7 @@ public class InstructionsDisplay extends VBox {
         blackBox.setStrokeWidth(2);
         blackBox.setOpacity(.8);
 
+        // A label to let the user know what they are looking at
         Text instLabel = new Text("Instructions");
         instLabel.setFont(Font.font(30));
         instLabel.setFill(Color.WHITE);

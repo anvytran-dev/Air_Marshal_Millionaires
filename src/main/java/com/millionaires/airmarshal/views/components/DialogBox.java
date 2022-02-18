@@ -13,13 +13,26 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Renders a String in a rectangular, self-dismissing box.
+ */
 public class DialogBox extends StackPane {
     private final Text dialogText;
 
+    /**
+     * Renders a String in a rectangular, self-dismissing box.
+     * @param text the text to display in the dialog box
+     */
     public DialogBox(String text) {
         this(text, 900, 200);
     }
 
+    /**
+     * Renders a String in a rectangular, self-dismissing box.
+     * @param text the text to display in the dialog box
+     * @param width the width of the DialogBox
+     * @param height the height of the DialogBox
+     */
     public DialogBox(String text, double width, double height) {
         super();
 
@@ -54,6 +67,10 @@ public class DialogBox extends StackPane {
 
     EventHandler<ActionEvent> onDismiss = e -> ViewInterface.getInstance().dismissDialog();
 
+    /**
+     * Sets the current text of the DialogBox.
+     * @param text the text to display in the dialog box - if null, will display an empty String
+     */
     public void setText(String text){
         dialogText.setText(text == null ? "" : text);
     }
