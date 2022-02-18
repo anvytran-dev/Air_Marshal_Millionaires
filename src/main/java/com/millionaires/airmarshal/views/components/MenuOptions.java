@@ -16,12 +16,21 @@ public class MenuOptions extends VBox {
     public MenuOptions() {
 
         ViewInterface api = ViewInterface.getInstance();
+        /**
+         * turn music on and off
+         */
 
         Button soundBtn = getMenuButton("Sound");
         soundBtn.setOnMouseClicked(toggleSound);
+        /**
+         * saves game
+         */
 
         Button saveBtn = getMenuButton("Save");
         saveBtn.setOnMouseClicked(mouseEvent -> api.saveGame());
+        /**
+         * displays instructions that are from the main screen
+         */
 
         Button helpBtn = getMenuButton("Help");
         helpBtn.setOnMouseClicked(showHelpMenu);
@@ -43,6 +52,12 @@ public class MenuOptions extends VBox {
             System.out.println("Error occurred while trying to play audio: " + errorMsg);
     };
 
+    /**
+     * created button to use for all the menu options
+     * @param label to name the button
+     * @return button
+     */
+
     private Button getMenuButton(String label) {
         Button b = new Button(label);
         b.setPrefWidth(100);
@@ -50,5 +65,8 @@ public class MenuOptions extends VBox {
         return b;
     }
 
+    /**
+     * an EventHandler which shows the help menu
+     */
     private EventHandler<MouseEvent> showHelpMenu = e -> ViewInterface.getInstance().showHelpMenu();
 }

@@ -4,6 +4,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Separator;
 
+/**
+ * Renders a separating line using spacing and padding
+ */
 public class CustomSeparator extends Separator {
     public CustomSeparator(){
         super(Orientation.HORIZONTAL);

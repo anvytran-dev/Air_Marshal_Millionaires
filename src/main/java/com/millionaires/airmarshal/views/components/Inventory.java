@@ -20,6 +20,9 @@ public class Inventory extends VBox {
 
     public Inventory() {
         List<Node> nodesToAdd = new ArrayList<>();
+        /**
+         * inventory label for inventory side panel
+         */
 
         Label inventoryLabel = new Label("Inventory");
         inventoryLabel.setFont(Font.font("System Regular", FontWeight.BOLD, 30));
@@ -27,6 +30,9 @@ public class Inventory extends VBox {
         inventoryLabel.setPadding(new Insets(0,0,10,0));
 
         nodesToAdd.add(inventoryLabel);
+        /**
+         * setting up styling for buttons in inventory
+         */
 
         for (InteractableData item : ViewInterface.getInstance().getPlayerInventory()) {
             Button button1 = new Button();

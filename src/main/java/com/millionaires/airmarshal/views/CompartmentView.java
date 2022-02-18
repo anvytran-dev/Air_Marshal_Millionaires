@@ -6,6 +6,11 @@ import com.millionaires.airmarshal.views.components.ItemsDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
+/**
+ * gave characters and items a fixed height to render
+ * renders characters and items on screen
+ */
+
 public class CompartmentView extends AnchorPane {
     private final double CHARACTER_HEIGHT = 500;
     private final double ITEM_HEIGHT = 100;

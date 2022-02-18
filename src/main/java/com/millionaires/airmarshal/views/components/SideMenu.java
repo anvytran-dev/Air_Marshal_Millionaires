@@ -27,6 +27,13 @@ public class SideMenu extends BorderPane {
     VBox middleSection;
     VBox menuButtonHolder;
 
+    /**
+     * The side menu shows the player which compartment they are in, which direction they can go to and items,
+     * that can be clicked on in order to move to inventory.
+     * The time remaining is displayed and shown using seconds
+     *
+     */
+
     public SideMenu() {
 
         currentCompartment = new Label(api.getCompartmentName());
@@ -40,6 +47,7 @@ public class SideMenu extends BorderPane {
 
         timeRemaining.setFont(Font.font("System regular", FontWeight.BOLD, 20));
         timeRemaining.setTextFill(Color.WHITE);
+
 
         menuButtonHolder = new VBox(getMenuButton());
         menuButtonHolder.setAlignment(Pos.CENTER);
@@ -69,6 +77,11 @@ public class SideMenu extends BorderPane {
         return "file:resources/images/MainMenuView/" + fileName;
     }
 
+    /**
+     * background for menu matches main menu .
+     * @param path used to locate file
+     * @return
+     */
     private Background getBackgroundImage(String path) {
         Image image = new Image(path, true);
         BackgroundSize size = new BackgroundSize(1, 1, true, true, true, true);
@@ -87,10 +100,19 @@ public class SideMenu extends BorderPane {
 
     };
 
+    /**
+     * this is updated every time player moves through scenes
+     * @param secs is used to show time
+     */
+
     public void updateTimer(String secs) {
         timeRemaining.setText("Time remaining: " + secs);
     }
 
+    /**
+     * when clicking on side menu, it shows if you are on the invdentory or menu options screen
+     * @return
+     */
     private Button getMenuButton() {
         String icon = shouldShowInventory ? "=" : "x";
         Button button = shouldShowInventory ? new StandardButton(icon) : StandardButton.red(icon);
